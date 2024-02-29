@@ -18,8 +18,8 @@ Game::~Game()
 
 void Game::run()
 {
-    const int screenWidth = 1920;
-    const int screenHeight = 1080;
+    const int screenWidth = 1200;
+    const int screenHeight = 700;
 
 
     InitWindow(screenWidth, screenHeight, "Pokemon - Rouge");

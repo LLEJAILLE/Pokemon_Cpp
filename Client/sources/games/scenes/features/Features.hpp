@@ -17,6 +17,7 @@ namespace rtype {
                 this->camera.offset = { static_cast<float>(GetScreenWidth() / 2), static_cast<float>(GetScreenHeight() / 2) };
                 this->camera.rotation = 0.0f;
                 this->camera.zoom = 1.0f;
+                parseMap("./maps/1.txt");
             }
             ~Features();
 
@@ -27,6 +28,10 @@ namespace rtype {
 
             void updateMoving(float deltatime);
             void catchInput();
+
+            // parsing
+            void parseMap(std::string path);
+
 
             SoundManager &_soundManager;
 
@@ -43,6 +48,9 @@ namespace rtype {
             std::string _stateMoving = "";
 
             Camera2D camera;
+
+            // double tab map
+            std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> _map;
     };
 }
 
