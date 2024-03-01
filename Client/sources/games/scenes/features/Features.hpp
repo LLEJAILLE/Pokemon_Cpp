@@ -17,7 +17,7 @@ namespace rtype {
                 this->camera.offset = { static_cast<float>(GetScreenWidth() / 2), static_cast<float>(GetScreenHeight() / 2) };
                 this->camera.rotation = 0.0f;
                 this->camera.zoom = 1.0f;
-                parseMap("./maps/1.txt");
+                parseMap("./maps/1.txt", "./maps/config1.txt");
             }
             ~Features();
 
@@ -30,7 +30,28 @@ namespace rtype {
             void catchInput();
 
             // parsing
-            void parseMap(std::string path);
+            void parseMap(std::string path, std::string config);
+
+            std::map<std::string, std::string> parseConfig(std::ifstream &config)
+            {
+                std::map<std::string, std::string> configMap;
+                std::string line;
+
+                while (std::getline(config, line)) {
+                    // i want to store the parsing of the config in std::map<std::string, std::string> (config is write like char path)
+                    // split the line with the first ' '
+                    // store the first part in the map as the key and the second part as the value
+
+                    std::string key = line.substr(0, line.find(' '));
+                    std::string value = line.substr(line.find(' ') + 1);
+
+                    configMap.insert(std::pair<std::string, std::string>(key, value));
+                }
+                return configMap;
+            }
+
+            // collision
+            bool checkCollision();
 
 
             SoundManager &_soundManager;
@@ -49,8 +70,11 @@ namespace rtype {
 
             Camera2D camera;
 
-            // double tab map
             std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> _map;
+
+            std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> _collisions;
+
+            std::map<std::string, std::string> _indexFilePathText;
     };
 }
 
