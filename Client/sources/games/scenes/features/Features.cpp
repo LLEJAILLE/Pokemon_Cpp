@@ -213,8 +213,6 @@ void rtype::Features::updateTexture(float speed, float deltaTime)
     frameRec.y = frameHeight;
 }
 
-
-
 void rtype::Features::draw()
 {
     BeginDrawing();
