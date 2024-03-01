@@ -18,6 +18,11 @@ namespace rtype {
                 this->camera.rotation = 0.0f;
                 this->camera.zoom = 1.0f;
                 parseMap("./maps/1.txt", "./maps/config1.txt");
+
+                this->frameWidth = 50;
+                this->frameHeight = 50;
+
+                this->frameRec = { 0, 0, frameWidth, frameHeight };
             }
             ~Features();
 
@@ -32,26 +37,11 @@ namespace rtype {
             // parsing
             void parseMap(std::string path, std::string config);
 
-            std::map<std::string, std::string> parseConfig(std::ifstream &config)
-            {
-                std::map<std::string, std::string> configMap;
-                std::string line;
-
-                while (std::getline(config, line)) {
-                    // i want to store the parsing of the config in std::map<std::string, std::string> (config is write like char path)
-                    // split the line with the first ' '
-                    // store the first part in the map as the key and the second part as the value
-
-                    std::string key = line.substr(0, line.find(' '));
-                    std::string value = line.substr(line.find(' ') + 1);
-
-                    configMap.insert(std::pair<std::string, std::string>(key, value));
-                }
-                return configMap;
-            }
-
             // collision
             bool checkCollision();
+
+            // sprite
+            void updateTexture(float speed, float deltatime);
 
 
             SoundManager &_soundManager;
@@ -60,8 +50,17 @@ namespace rtype {
 
 
         private:
+            float frameWidth = 0;
+            float frameHeight = 0;
+            int currentFrame = 0;
+            int framesCounter = 0;
+
+            Rectangle frameRec;
+        
             bool _IsMoving = false;
             float speed = 150;
+            float _deltaTime = 0;
+
 
             Vector2 _PositionStart = {0, 0};
             Vector2 _PositionEnd = {0, 0};
@@ -75,6 +74,8 @@ namespace rtype {
             std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> _collisions;
 
             std::map<std::string, std::string> _indexFilePathText;
+
+            std::map<std::string, std::string> _indexFilePathColl;
     };
 }
 

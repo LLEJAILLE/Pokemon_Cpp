@@ -34,7 +34,7 @@ void Game::run()
     // ------------------ CREATE ENTITIES ------------------ //
 
     rtype::ECS::Ecs3D::IEntity player("player");
-    Image img = LoadImage("./Media/player.png");
+    Image img = LoadImage("./Media/spriteSheet.png");
     player.addComponent<rtype::ECS::Ecs3D::PositionComponent2d>(Vector2{0, 0}, "playerPosition");
     player.addComponent<rtype::ECS::Ecs3D::Texture2d>(img, "playerTexture");
     featuresScene.addEntity(std::make_shared<rtype::ECS::Ecs3D::IEntity>(player));
