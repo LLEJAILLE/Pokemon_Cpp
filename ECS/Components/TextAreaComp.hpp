@@ -18,6 +18,8 @@ namespace rtype {
                     int nbChar;
 
                     TextAreaComp(std::string id, bool isFocus, int nbChar) : id(id), isFocus(isFocus), nbChar(nbChar) {};
+
+                    std::string getName() const override { return id; }
             };
         }
     }

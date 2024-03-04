@@ -22,6 +22,8 @@ namespace rtype {
                         this->rec = {0, 0, 0, 0};
                     };
 
+                    std::string getName() const override { return id; }
+
             };
         }
     }

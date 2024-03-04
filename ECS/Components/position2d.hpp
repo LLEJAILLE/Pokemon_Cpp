@@ -14,6 +14,9 @@ namespace rtype::ECS::Ecs3D {
             Vector2 position;
             std::string id;
 
+            std::string getName() const override { return id; }
+
+
             // Constructor
             PositionComponent2d(Vector2 initialPosition, std::string id)
                 : position(initialPosition), id(id) {}

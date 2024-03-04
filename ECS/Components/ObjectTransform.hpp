@@ -22,6 +22,8 @@ namespace rtype::ECS::Ecs3D {
             ObjectTransform* Parent = nullptr;
             std::vector<ObjectTransform*> Children;
 
+            std::string getName() const override { return "id"; }
+
         public:
 
             ObjectTransform(bool faceY = true)

@@ -58,5 +58,7 @@ namespace rtype::ECS::Ecs3D {
             void applyRotation(Vector3 angle) {
                 model.transform = MatrixRotateXYZ(angle);
             }
+
+            std::string getName() const override { return id; }
     };
 }

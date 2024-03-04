@@ -33,5 +33,7 @@ namespace rtype::ECS::Ecs3D {
             void printButton() {
                 std::cout << "Button: " << button.x << " " << button.y << " " << button.width << " " << button.height << std::endl;
             }
+
+            std::string getName() const override { return id; }
     };
 }

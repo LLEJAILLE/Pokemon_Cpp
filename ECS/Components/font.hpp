@@ -23,6 +23,8 @@ namespace rtype {
                         : id(id), size(size), filepath(filepath) {
                             font = LoadFontEx(filepath.c_str(), size, 0, 250);
                         }
+
+                        std::string getName() const override { return id; }
             };
         }
     }

@@ -35,5 +35,7 @@ namespace rtype::ECS::Ecs3D {
                 rotationAngle = 0.0f;
                 model.transform = MatrixTranslate(startPos.x, startPos.y, startPos.z);
             }
+
+            std::string getName() const override { return id; }
     };
 }

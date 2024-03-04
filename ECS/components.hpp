@@ -38,3 +38,8 @@
 #include "Components/reloading.hpp"
 #include "Components/listener.hpp"
 #include "Components/ObjectTransform.hpp"
+#include "Components/textureUp.hpp"
+#include "Components/textureDown.hpp"
+#include "Components/textureLeft.hpp"
+#include "Components/textRight.hpp"
+

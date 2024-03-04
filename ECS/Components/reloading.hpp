@@ -22,6 +22,8 @@ namespace rtype {
                     // Constructor
                     ReloadingComponent(std::string id, float time)
                         : id(id), time(time) {}
+
+                    std::string getName() const override { return id; }
             };
         }
     }

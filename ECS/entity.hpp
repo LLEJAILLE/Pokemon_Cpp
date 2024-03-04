@@ -73,6 +73,20 @@ namespace rtype::ECS::Ecs3D {
             return nullptr;
         }
 
+        //get component by name
+    
+       std::shared_ptr<IComponent> getComponentByName(const std::string& componentName) const {
+            for (const auto& pair : components) {
+                // std::cout << "component name: " << componentName << std::endl;
+                std::cout << pair.second->getName() << std::endl;
+
+                if (pair.second->getName() == componentName) {
+                    return pair.second;
+                }
+            }
+            return nullptr;
+        }
+
         std::map<std::type_index, std::shared_ptr<IComponent>> getComponents() const {
             return components;
         }
@@ -86,6 +100,12 @@ namespace rtype::ECS::Ecs3D {
         template <typename T>
         bool hasComponent() const {
             return components.find(typeid(T)) != components.end();
+        }
+
+        void printComponents() {
+            for (const auto& component : components) {
+                std::cout << "Component: " << component.first.name() << std::endl;
+            }
         }
 
     private:

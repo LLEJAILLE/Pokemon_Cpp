@@ -20,6 +20,8 @@ namespace rtype {
                     // Constructor
                     FontSize(std::string id, float size)
                         : id(id), size(size) {}
+
+                        std::string getName() const override { return id; }
             };
         }
     }

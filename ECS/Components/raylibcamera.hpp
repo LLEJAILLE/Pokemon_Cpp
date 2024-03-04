@@ -34,6 +34,8 @@ namespace rtype::ECS::Ecs3D {
                 camera.projection = projection;
             }
 
+            std::string getName() const override { return id; }
+
             RayLibCameraComponent(std::string id)
             : id(id) {
                 camera.position = {0};

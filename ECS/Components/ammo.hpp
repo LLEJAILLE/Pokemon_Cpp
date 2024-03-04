@@ -20,6 +20,8 @@ namespace rtype {
                     // Constructor
                     AmmoComponent(std::string id, int nb_ammo)
                         : id(id), nb_ammo(nb_ammo) {}
+
+                    std::string getName() const override { return id; }
             };
         }
     }

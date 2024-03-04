@@ -19,5 +19,6 @@ namespace rtype::ECS::Ecs3D {
                 image = LoadImage(filePath.c_str());
                 this->id = id;
             }
+            std::string getName() const override { return id; }
     };
 }

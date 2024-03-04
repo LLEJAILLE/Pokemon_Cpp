@@ -23,5 +23,7 @@ namespace rtype::ECS::Ecs3D {
                 speed = 0.0f;
                 id = "default";
             }
+
+            std::string getName() const override { return id; }
     };
 }

@@ -27,5 +27,7 @@ namespace rtype::ECS::Ecs3D {
             void printModel() {
                 std::cout << "Id: " << id.c_str() << std::endl;
             }
+
+            std::string getName() const override { return id; }
     };
 }

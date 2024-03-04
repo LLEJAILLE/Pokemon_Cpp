@@ -20,7 +20,9 @@ namespace rtype {
                     // Constructor
                     InitialFontSize(std::string id, float initial_size)
                         : id(id), initial_size(initial_size) {}
-            };
+
+                    std::string getName() const override { return id; }
+            };            
         }
     }
 }

@@ -35,5 +35,7 @@ namespace rtype::ECS::Ecs3D {
             void printHitboxGravity() {
                 std::cout << "HitboxGravity: " << width << " " << height << " " << length << std::endl;
             }
+
+            std::string getName() const override { return id; }
     };
 }

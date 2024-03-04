@@ -20,3 +20,4 @@ collisions:
 0 = ./Media/maps/home14.png
 ( = ./Media/maps/home15.png
 - = ./Media/maps/home16.png
+@ = ./Media/maps/block.png

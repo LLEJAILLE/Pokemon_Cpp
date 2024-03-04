@@ -20,6 +20,8 @@ namespace rtype {
                     // Constructor
                     ListenerComponent(std::string id)
                         : id(id) {}
+
+                    std::string getName() const override { return id; }
             };
         }
     }

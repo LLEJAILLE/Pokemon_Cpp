@@ -20,6 +20,8 @@ namespace rtype {
                     // Constructor
                     ColorComponent(std::string id, Color color)
                         : id(id), color(color) {}
+
+                    std::string getName() const override { return id; }
             };
         }
     }

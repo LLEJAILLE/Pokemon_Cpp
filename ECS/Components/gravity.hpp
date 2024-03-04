@@ -20,5 +20,7 @@ namespace rtype::ECS::Ecs3D {
             // Constructor
             GravityComponent(float initialGravity, std::string id)
                 : gravity(initialGravity), id(id) {}
+
+            std::string getName() const override { return id; }
     };
 }

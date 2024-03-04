@@ -88,159 +88,47 @@ void rtype::Features::parseMap(std::string path, std::string config)
     fileconfg.close();
 }
 
-void rtype::Features::updateMoving(float deltatime)
+void rtype::Features::drawSpritePlayer()
 {
-    if (this->_IsMoving) {
-        if (this->_stateMoving == "right") {
-            this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x += 1 * deltatime * this->speed;
-            if (this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x >= this->_PositionEnd.x) {
-                this->_IsMoving = false;
-                this->_stateMoving = "";
-                this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position = this->_PositionEnd;   
-            }
-        } else if (this->_stateMoving == "left") {
-            this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x -= 1 * deltatime * this->speed;
-            if (this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x <= this->_PositionEnd.x) {
-                this->_IsMoving = false;
-                this->_stateMoving = "";
-                this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position = this->_PositionEnd;   
-            }
-        } else if (this->_stateMoving == "up") {
-            this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y -= 1 * deltatime * this->speed;
-            if (this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y <= this->_PositionEnd.y) {
-                this->_IsMoving = false;
-                this->_stateMoving = "";
-                this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position = this->_PositionEnd;   
-            }
-        } else if (this->_stateMoving == "down") {
-            this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y += 1 * deltatime * this->speed;
-            if (this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y >= this->_PositionEnd.y) {
-                this->_IsMoving = false;
-                this->_stateMoving = "";
-                this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position = this->_PositionEnd;   
-            }
-        }
+    if (this->_stateMoving == "right") {
+        DrawTextureRec(this->_myPlayer.getComponent<rtype::ECS::Ecs3D::TextureRight>()->texture, frameRec, this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position, WHITE);
+    } else if (this->_stateMoving == "left") {
+        DrawTextureRec(this->_myPlayer.getComponent<rtype::ECS::Ecs3D::TextureLeft>()->texture, frameRec, this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position, WHITE);
+    } else if (this->_stateMoving == "up") {
+        DrawTextureRec(this->_myPlayer.getComponent<rtype::ECS::Ecs3D::TextureUp>()->texture, frameRec, this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position, WHITE);
+    } else if (this->_stateMoving == "down") {
+        DrawTextureRec(this->_myPlayer.getComponent<rtype::ECS::Ecs3D::TextureDown>()->texture, frameRec, this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position, WHITE);
     }
-}
-
-bool rtype::Features::checkCollision()
-{
-    for (int i = 0; i < this->_collisions.size(); i++) {
-        if (this->_stateMoving == "right" && CheckCollisionRecs({this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x + 50, this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y, 50, 50}, {this->_collisions[i]->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x, this->_collisions[i]->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y, 50, 50})) {
-            return true;
-        } else if (this->_stateMoving == "left" && CheckCollisionRecs({this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x - 50, this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y, 50, 50}, {this->_collisions[i]->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x, this->_collisions[i]->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y, 50, 50})) {
-            return true;
-        } else if (this->_stateMoving == "up" && CheckCollisionRecs({this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x, this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y - 50, 50, 50}, {this->_collisions[i]->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x, this->_collisions[i]->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y, 50, 50})) {
-            return true;
-        } else if (this->_stateMoving == "down" && CheckCollisionRecs({this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x, this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y + 50, 50, 50}, {this->_collisions[i]->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x, this->_collisions[i]->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y, 50, 50})) {
-            return true;
-        }
-    }
-    return false;
-}
-
-void rtype::Features::catchInput()
-{
-    if (IsKeyDown(KEY_RIGHT) && !this->_IsMoving) {
-        this->_IsMoving = true;
-        this->_stateMoving = "right";
-
-        if (checkCollision()) {
-            this->_IsMoving = false;
-            this->_stateMoving = "";
-            return;
-        }
-
-        this->_PositionStart = this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position;
-        this->_PositionEnd = {this->_PositionStart.x + 50, this->_PositionStart.y};
-    } else if (IsKeyDown(KEY_LEFT) && !this->_IsMoving) {
-        this->_IsMoving = true;
-        this->_stateMoving = "left";
-
-        if (checkCollision()) {
-            this->_IsMoving = false;
-            this->_stateMoving = "";
-            return;
-        }
-
-        this->_PositionStart = this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position;
-        this->_PositionEnd = {this->_PositionStart.x - 50, this->_PositionStart.y};
-    } else if (IsKeyDown(KEY_UP) && !this->_IsMoving) {
-        this->_IsMoving = true;
-        this->_stateMoving = "up";
-
-        if (checkCollision()) {
-            this->_IsMoving = false;
-            this->_stateMoving = "";
-            return;
-        }
-
-        this->_PositionStart = this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position;
-        this->_PositionEnd = {this->_PositionStart.x, this->_PositionStart.y - 50};
-    } else if (IsKeyDown(KEY_DOWN) && !this->_IsMoving) {
-        this->_IsMoving = true;
-        this->_stateMoving = "down";
-
-        if (checkCollision()) {
-            this->_IsMoving = false;
-            this->_stateMoving = "";
-            return;
-        }
-
-        this->_PositionStart = this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position;
-        this->_PositionEnd = {this->_PositionStart.x, this->_PositionStart.y + 50};
-    }
-}
-
-void rtype::Features::updateTexture(float speed, float deltaTime)
-{
-    if (!this->_IsMoving) {
-        this->currentFrame = 0;
-        frameRec.x = frameWidth*currentFrame;
-        frameRec.y = frameHeight;
-        return;
-    }
-
-    this->framesCounter++;
-    if (this->framesCounter > 20) {
-        this->currentFrame++;
-        if (this->currentFrame >= 4) {
-            this->currentFrame = 0;
-        }
-        framesCounter = 0;
-    }
-    frameRec.x = frameWidth*currentFrame;
-    frameRec.y = frameHeight;
 }
 
 void rtype::Features::draw()
 {
     BeginDrawing();
-        ClearBackground(RAYWHITE);
-        DrawFPS(10, 10);
+        ClearBackground(Color{255, 255, 255, 255});
         BeginMode2D(this->camera);
 
             for (int i = 0; i < this->_map.size(); i++) {
                 DrawTexture(this->_map[i]->getComponent<rtype::ECS::Ecs3D::Texture2d>()->texture, this->_map[i]->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x, this->_map[i]->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y, WHITE);
             }
             
-            DrawTextureRec(this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::Texture2d>()->texture, frameRec, this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position, WHITE);
+            drawSpritePlayer();
 
         EndMode2D();
+
+        DrawFPS(10, 10);
     EndDrawing();
 }
 
 void rtype::Features::update(float deltatime, float getTime)
 {
     this->_deltaTime = deltatime;
-
-    this->camera.target.x = this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x + 25;
-    this->camera.target.y = this->getEntity("player")->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y + 25;
+    this->camera.target.x = this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x + 25;
+    this->camera.target.y = this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y + 25;
 
     // update moving here
-    updateTexture(30.0f, deltatime);
-    updateMoving(deltatime);
+    rtype::modules::Textures::updateTexture(30.0f, deltatime, this->_IsMoving, this->currentFrame, this->framesCounter, this->frameRec, this->frameWidth, this->frameHeight);
+    rtype::modules::MovingUpdater::updateMoving(this->_myPlayer, this->_stateMoving, this->_PositionEnd, deltatime, 130.0f, this->_IsMoving);
 
     // catch input here
-    catchInput();
+    rtype::modules::MovingUpdater::catchInput(this->_myPlayer, this->_stateMoving, this->_PositionStart, this->_PositionEnd, this->_IsMoving, this->_collisions);
 }

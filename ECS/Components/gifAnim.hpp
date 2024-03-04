@@ -18,5 +18,7 @@ namespace rtype::ECS::Ecs3D {
 
             // Constructor
             GifAnim() = default;
+
+            std::string getName() const override { return "id"; }
     };
 }

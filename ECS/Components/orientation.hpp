@@ -14,6 +14,7 @@ namespace rtype::ECS::Ecs3D {
             Vector3 orientation;
             std::string id;
 
+            std::string getName() const override { return id; }
             // Constructor
             OrientationComponent(Vector3 initialOrientation, std::string id)
                 : orientation(initialOrientation), id(id) {}

@@ -18,5 +18,7 @@ namespace rtype::ECS::Ecs3D {
             // Constructor
             Health(std::string id, float health)
                 : id(id), health(health) {}
+            
+            std::string getName() const override { return id; }
     };
 }

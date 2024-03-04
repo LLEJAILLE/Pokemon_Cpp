@@ -19,5 +19,7 @@ namespace rtype::ECS::Ecs3D {
                 texture = LoadTextureFromImage(Image);
                 this->id = id;
             }
+
+            std::string getName() const override { return id; }
     };
 }

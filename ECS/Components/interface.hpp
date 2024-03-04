@@ -12,5 +12,7 @@ namespace rtype::ECS::Ecs3D {
     class IComponent {
         public:
             virtual ~IComponent() = default;
+
+            virtual std::string getName() const = 0;
     };
 }

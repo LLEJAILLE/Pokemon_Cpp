@@ -17,5 +17,7 @@ namespace rtype::ECS::Ecs3D {
             // Constructor
             SpeedPlayer(std::string id, float speed)
                 : id(id), speed(speed) {}
+
+            std::string getName() const override { return id; }
     };
 }

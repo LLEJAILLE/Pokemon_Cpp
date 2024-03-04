@@ -17,5 +17,7 @@ namespace rtype::ECS::Ecs3D {
             // Constructor
             XpPlayer(std::string id, float xp)
                 : id(id), xp(xp) {}
+
+            std::string getName() const override { return id; }
     };
 }
