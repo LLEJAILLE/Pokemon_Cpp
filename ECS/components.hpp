@@ -42,4 +42,5 @@
 #include "Components/textureDown.hpp"
 #include "Components/textureLeft.hpp"
 #include "Components/textRight.hpp"
-
+#include "Components/pnjName.hpp"
+#include "Components/pnjPosition.hpp"

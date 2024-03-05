@@ -19,6 +19,14 @@ namespace rtype {
             : _scene(scene), _soundManager(soundManager), _myPlayer(myPlayer) {
                 rtype::modules::Map::parseMap("./maps/1.txt", "./maps/config1.txt", this->_indexFilePathText, this->_indexFilePathColl, this->_collisions, this->_map);
 
+                this->parseAndFillPnj("./maps/pnj.txt");
+
+                for (int i = 0; this->_pnj.size() > i; i++) {
+                    std::cout << this->_pnj[i]->getComponent<rtype::ECS::Ecs3D::PnjNameComponent>()->name << std::endl;
+                    std::cout << this->_pnj[i]->getComponent<rtype::ECS::Ecs3D::PnjPosComponent>()->position.x << std::endl;
+                    std::cout << this->_pnj[i]->getComponent<rtype::ECS::Ecs3D::PnjPosComponent>()->position.y << std::endl;
+                }
+
                 this->_stateMoving = "down";
                 this->camera.target = { static_cast<float>(GetScreenWidth() / 2), static_cast<float>(GetScreenHeight() / 2) };
                 this->camera.offset = { static_cast<float>(GetScreenWidth() / 2), static_cast<float>(GetScreenHeight() / 2) };
@@ -33,6 +41,8 @@ namespace rtype {
 
             void draw() override;
             void update(float deltatime, float getTime) override;
+
+            void parseAndFillPnj(std::string path);
 
             SoundManager &_soundManager;
             _Scene &_scene;
@@ -61,6 +71,8 @@ namespace rtype {
             std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> _collisions;
             std::map<std::string, std::string> _indexFilePathText;
             std::map<std::string, std::string> _indexFilePathColl;
+
+            std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> _pnj;
 
             Camera2D camera;
     };

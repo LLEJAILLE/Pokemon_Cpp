@@ -55,12 +55,8 @@ void Game::run()
 
     // ------------------ BUILDER SCENES ------------------ //
     this->allScenes[_Scene::FEATURES] = std::make_unique<rtype::Features>(featuresScene);
-
-    // print all entities of the scene
     
-    std::cout << "dans la scene login dans le game:" << std::endl;
-    featuresScene.printEntitiesWithComponents();
-
+    
     // ------------------ MAIN LOOP ------------------ //
     while (!WindowShouldClose()) {
         float deltaTime = GetFrameTime();
