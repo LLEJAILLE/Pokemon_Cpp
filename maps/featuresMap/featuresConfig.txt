@@ -1,0 +1,23 @@
+texture:
+* = ./Media/maps/ground.png
++ = ./Media/maps/herb.png
+/ = ./Media/maps/herb2.png
+
+collisions:
+1 = ./Media/maps/home1.png
+2 = ./Media/maps/home2.png
+3 = ./Media/maps/home3.png
+4 = ./Media/maps/home4.png
+5 = ./Media/maps/home5.png
+6 = ./Media/maps/home6.png
+7 = ./Media/maps/home7.png
+8 = ./Media/maps/home8.png
+9 = ./Media/maps/home9.png
+. = ./Media/maps/home10.png
+& = ./Media/maps/home11.png
+) = ./Media/maps/home12.png
+" = ./Media/maps/home13.png
+0 = ./Media/maps/home14.png
+( = ./Media/maps/home15.png
+- = ./Media/maps/home16.png
+@ = ./Media/maps/block.png
