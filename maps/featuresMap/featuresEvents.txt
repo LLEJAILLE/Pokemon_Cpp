@@ -1,0 +1,27 @@
+OnClick
+1
+pnj1
+12 10
+textureUp "filepath"
+textureDown "filepath"
+textureLeft "filepath"
+textureRight "filepath"
+1
+0--
+text "Hello world"
+move up
+look down
+common_switch 1
+--0
+1--       
+text "See you soon"
+--1
+
+OnHover
+2
+teleportPlayer
+10 10
+0
+0--
+teleportPlayer [map] [x] [y]
+--0
