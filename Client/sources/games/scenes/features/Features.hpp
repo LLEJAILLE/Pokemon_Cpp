@@ -9,6 +9,7 @@
     #include "../../modules/moves/updateMove.hpp"
     #include "../../modules/textures/textures.hpp"
     #include "../../modules/map/map.hpp"
+    #include "../../modules/events/events.hpp"
     #include <filesystem>
 
 namespace rtype {
@@ -16,10 +17,11 @@ namespace rtype {
     class Features : public ECS::Ecs3D::AScene {
         public:
             Features(_Scene &scene, SoundManager &soundManager, ECS::Ecs3D::IEntity &myPlayer)
-            : _scene(scene), _soundManager(soundManager), _myPlayer(myPlayer) {
+            : _scene(scene), _soundManager(soundManager), _myPlayer(myPlayer)
+            {
                 rtype::modules::Map::parseMap("./maps/featuresMap/featuresMap.txt", "./maps/featuresMap/featuresConfig.txt", this->_indexFilePathText, this->_indexFilePathColl, this->_collisions, this->_map);
 
-                this->parseAndFillPnj("./maps/featuresMap/featuresPnj.txt");
+                this->parseAndFillPnj("./maps/featuresEvents.txt");
 
                 this->_stateMoving = "down";
                 this->camera.target = { static_cast<float>(GetScreenWidth() / 2), static_cast<float>(GetScreenHeight() / 2) };
@@ -29,6 +31,9 @@ namespace rtype {
                 this->frameWidth = 50;
                 this->frameHeight = 50;
                 this->frameRec = { 0, 0, frameWidth, frameHeight };
+
+                this->_mapFunction["move"] = &modules::Events::moveEvent;
+                this->_mapFunction["text"] = &modules::Events::printEvent;
             }
             
             ~Features();
@@ -37,12 +42,15 @@ namespace rtype {
             void update(float deltatime, float getTime) override;
 
             void parseAndFillPnj(std::string path);
+            void checkEventCol();
 
             SoundManager &_soundManager;
             _Scene &_scene;
 
             ECS::Ecs3D::IEntity &_myPlayer;
 
+            using FuncPtr = void (modules::Events::*)(const std::string &);
+            std::map<std::string, FuncPtr> _mapFunction;
 
         private:
             float _deltaTime = 0;
@@ -66,7 +74,8 @@ namespace rtype {
             std::map<std::string, std::string> _indexFilePathText;
             std::map<std::string, std::string> _indexFilePathColl;
 
-            std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> _pnj;
+            std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> _eventsCol;
+            std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> _eventsHover;
 
             Camera2D camera;
     };

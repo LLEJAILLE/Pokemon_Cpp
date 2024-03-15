@@ -44,3 +44,4 @@
 #include "Components/textRight.hpp"
 #include "Components/pnjName.hpp"
 #include "Components/pnjPosition.hpp"
+#include "Components/eventClickComp.hpp"

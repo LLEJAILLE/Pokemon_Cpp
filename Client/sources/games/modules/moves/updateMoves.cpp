@@ -35,7 +35,7 @@ void rtype::modules::MovingUpdater::updateMoving(ECS::Ecs3D::IEntity& player, st
     }
 }
 
-bool rtype::modules::MovingUpdater::checkCollision(std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &collisions, ECS::Ecs3D::IEntity& player, std::string& stateMoving)
+bool rtype::modules::MovingUpdater::checkCollision(std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &collisions, ECS::Ecs3D::IEntity& player, std::string& stateMoving, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &pnj)
 {
     for (int i = 0; i < collisions.size(); i++) {
         if (stateMoving == "right" && CheckCollisionRecs({player.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x + 50, player.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y, 50, 50}, {collisions[i]->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x, collisions[i]->getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y, 50, 50})) {
@@ -48,16 +48,29 @@ bool rtype::modules::MovingUpdater::checkCollision(std::map<int, std::shared_ptr
             return true;
         }
     }
-    return false;
+
+    for (int j = 0; j < pnj.size(); j++) {
+        if (stateMoving == "right" && CheckCollisionRecs({player.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x + 50, player.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y, 50, 50}, {pnj[j]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x, pnj[j]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y, 50, 50})) {
+            return true;
+        } else if (stateMoving == "left" && CheckCollisionRecs({player.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x - 50, player.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y, 50, 50}, {pnj[j]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x, pnj[j]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y, 50, 50})) {
+            return true;
+        } else if (stateMoving == "up" && CheckCollisionRecs({player.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x, player.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y - 50, 50, 50}, {pnj[j]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x, pnj[j]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y, 50, 50})) {
+            return true;
+        } else if (stateMoving == "down" && CheckCollisionRecs({player.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x, player.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y + 50, 50, 50}, {pnj[j]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x, pnj[j]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y, 50, 50})) {
+            return true;
+        }
+    }
+
+    return false;           
 }
 
-void rtype::modules::MovingUpdater::catchInput(ECS::Ecs3D::IEntity& player, std::string& stateMoving, Vector2& positionStart, Vector2& positionEnd, bool& isMoving, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &collisions)
+void rtype::modules::MovingUpdater::catchInput(ECS::Ecs3D::IEntity& player, std::string& stateMoving, Vector2& positionStart, Vector2& positionEnd, bool& isMoving, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &collisions, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &pnj)
 {
     if (IsKeyDown(KEY_RIGHT) && !isMoving) {
         isMoving = true;
         stateMoving = "right";
 
-        if (checkCollision(collisions, player, stateMoving)) {
+        if (checkCollision(collisions, player, stateMoving, pnj)) {
             isMoving = false;
             stateMoving = "right";
             return;
@@ -69,7 +82,7 @@ void rtype::modules::MovingUpdater::catchInput(ECS::Ecs3D::IEntity& player, std:
         isMoving = true;
         stateMoving = "left";
 
-        if (checkCollision(collisions, player, stateMoving)) {
+        if (checkCollision(collisions, player, stateMoving, pnj)) {
             isMoving = false;
             stateMoving = "left";
             return;
@@ -81,7 +94,7 @@ void rtype::modules::MovingUpdater::catchInput(ECS::Ecs3D::IEntity& player, std:
         isMoving = true;
         stateMoving = "up";
 
-        if (checkCollision(collisions, player, stateMoving)) {
+        if (checkCollision(collisions, player, stateMoving, pnj)) {
             isMoving = false;
             stateMoving = "up";
             return;
@@ -93,7 +106,7 @@ void rtype::modules::MovingUpdater::catchInput(ECS::Ecs3D::IEntity& player, std:
         isMoving = true;
         stateMoving = "down";
 
-        if (checkCollision(collisions, player, stateMoving)) {
+        if (checkCollision(collisions, player, stateMoving, pnj)) {
             isMoving = false;
             stateMoving = "down";
             return;
