@@ -86,8 +86,8 @@ void rtype::Features::parseAndFillPnj(std::string path)
 
 void rtype::Features::checkEventCol()
 {
+    auto eventsInstance = rtype::modules::Events();
     if (IsKeyPressed(KEY_SPACE)) {
-        auto eventsInstance = rtype::modules::Events();
         for (int i = 0; i < this->_eventsCol.size(); i++) {
             if (this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x + 50 >= this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x && this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x <= this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x + 50 && this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y + 50 >= this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y && this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y <= this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y + 50) {                
                 for (const auto &event : this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->events) {
@@ -99,7 +99,10 @@ void rtype::Features::checkEventCol()
 
                             auto it = this->_mapFunction.find(firstWord);
                             if (it != this->_mapFunction.end()) {
-                                (eventsInstance.*it->second)(action, this->_deltaTime);
+                                (eventsInstance.*it->second)(action, this->_deltaTime, this->_eventsCol, this->_eventsCol[i], this->_dialogBox, this->_myPlayer);
+
+                                draw();
+
                             } else {
                                 std::cout << "Function not found" << std::endl;
                             }
@@ -122,7 +125,8 @@ void rtype::Features::draw()
 
             // draw pnj
             for (int i = 0; i < this->_eventsCol.size(); i++) {
-                DrawTexture(this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->textureDown, this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x, this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y, WHITE);
+                //draw the rect
+                DrawTextureRec(this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->actualTexture, {0, 0, 50, 50}, this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position, WHITE);
             }
 
             rtype::modules::Textures::drawSpritePlayer(this->_myPlayer, this->_stateMoving, this->frameRec);

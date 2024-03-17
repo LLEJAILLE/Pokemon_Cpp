@@ -27,13 +27,14 @@ namespace rtype {
                 this->camera.target = { static_cast<float>(GetScreenWidth() / 2), static_cast<float>(GetScreenHeight() / 2) };
                 this->camera.offset = { static_cast<float>(GetScreenWidth() / 2), static_cast<float>(GetScreenHeight() / 2) };
                 this->camera.rotation = 0.0f;
-                this->camera.zoom = 1.0f;
+                this->camera.zoom = 1.5f;
                 this->frameWidth = 50;
                 this->frameHeight = 50;
                 this->frameRec = { 0, 0, frameWidth, frameHeight };
 
                 this->_mapFunction["move"] = &modules::Events::moveEvent;
                 this->_mapFunction["text"] = &modules::Events::printEvent;
+                this->_mapFunction["lookPlayer"] = &modules::Events::lookPlayer;
             }
             
             ~Features();
@@ -49,10 +50,11 @@ namespace rtype {
 
             ECS::Ecs3D::IEntity &_myPlayer;
 
-            using FuncPtr = void (modules::Events::*)(const std::string &, float deltatime);
+            using FuncPtr = void (modules::Events::*)(const std::string &, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer);
             std::map<std::string, FuncPtr> _mapFunction;
 
         private:
+            Texture2D _dialogBox = LoadTexture("./Media/ui/dialogBox.png");
             float _deltaTime = 0;
             float frameWidth = 0;
             float frameHeight = 0;

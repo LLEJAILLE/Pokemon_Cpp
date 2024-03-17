@@ -13,12 +13,10 @@ namespace rtype::modules {
         public:
             Events() = default;
             ~Events() = default;
-            void printEvent(const std::string &action, float deltatime);
-            void moveEvent(const std::string &action, float deltatime);
-
-
-            // ui
-            Texture2D _dialogBox = LoadTexture("./Media/ui/dialogBox.png");
+            void printEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer);
+            void moveEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer);
+            void lookPlayer(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer);
+            
     };
 }
 

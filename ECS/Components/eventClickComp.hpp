@@ -14,6 +14,10 @@ namespace rtype::ECS::Ecs3D {
             Texture2D textureLeft;
             Texture2D textureRight;
             int actualNumberOfCommonSwitch;
+            bool isMoving = false;
+            std::string stateMoving = "down";
+
+            Texture2D actualTexture;
 
             std::map<int, std::vector<std::string>> events;
 
@@ -29,6 +33,7 @@ namespace rtype::ECS::Ecs3D {
                 this->textureRight = textureRight;
                 this->actualNumberOfCommonSwitch = numberOfCommonSwitch;
                 this->events = events;
+                this->actualTexture = textureDown;
             }
 
             std::string getName() const override { return id; }

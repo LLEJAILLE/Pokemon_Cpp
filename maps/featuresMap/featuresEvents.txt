@@ -18,3 +18,18 @@ text "See you soon"
 --2     
 text "Oh you're back ?"
 --2
+
+OnClick
+2
+pnj2
+3 10
+textureUp "./Media/sprite_up.png"
+textureDown "./Media/sprite_down.png"
+textureLeft "./Media/sprite_left.png"
+textureRight "./Media/sprite_right.png"
+0
+--0
+lookPlayer
+text "Salut à toi jeune Dresseur ! Tu es dans le mode dev !"
+text "Et ceci est un test de la fonctionnalité de texte j'espère que tu apprécie le rendu !"
+--0
