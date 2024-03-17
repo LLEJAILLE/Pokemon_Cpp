@@ -18,11 +18,15 @@ Game::~Game()
 
 void Game::run()
 {
-    const int screenWidth = 1200;
-    const int screenHeight = 700;
+    const int screenWidth = 1920;
+    const int screenHeight = 1000;
 
 
     InitWindow(screenWidth, screenHeight, "Pokemon - Rouge");
+    
+    // enlever les bordures de la fenetre
+    SetWindowState(FLAG_WINDOW_UNDECORATED);
+
     SetTargetFPS(240);
 
     // ------------------ INIT SCENES ------------------ //

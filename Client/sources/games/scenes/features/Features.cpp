@@ -87,6 +87,7 @@ void rtype::Features::parseAndFillPnj(std::string path)
 void rtype::Features::checkEventCol()
 {
     if (IsKeyPressed(KEY_SPACE)) {
+        auto eventsInstance = rtype::modules::Events();
         for (int i = 0; i < this->_eventsCol.size(); i++) {
             if (this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x + 50 >= this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x && this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.x <= this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x + 50 && this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y + 50 >= this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y && this->_myPlayer.getComponent<rtype::ECS::Ecs3D::PositionComponent2d>()->position.y <= this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y + 50) {                
                 for (const auto &event : this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->events) {
@@ -98,8 +99,7 @@ void rtype::Features::checkEventCol()
 
                             auto it = this->_mapFunction.find(firstWord);
                             if (it != this->_mapFunction.end()) {
-                                auto eventsInstance = rtype::modules::Events();
-                                (eventsInstance.*it->second)(action);
+                                (eventsInstance.*it->second)(action, this->_deltaTime);
                             } else {
                                 std::cout << "Function not found" << std::endl;
                             }
@@ -126,14 +126,7 @@ void rtype::Features::draw()
             }
 
             rtype::modules::Textures::drawSpritePlayer(this->_myPlayer, this->_stateMoving, this->frameRec);
-
-            checkEventCol();
-
-
-
         EndMode2D();
-
-        DrawFPS(10, 10);
     EndDrawing();
 }
 
@@ -149,4 +142,6 @@ void rtype::Features::update(float deltatime, float getTime)
 
     // catch input here
     rtype::modules::MovingUpdater::catchInput(this->_myPlayer, this->_stateMoving, this->_PositionStart, this->_PositionEnd, this->_IsMoving, this->_collisions, this->_eventsCol);
+
+    checkEventCol();
 }

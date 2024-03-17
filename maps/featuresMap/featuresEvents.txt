@@ -6,12 +6,13 @@ textureUp "./Media/maps/block.png"
 textureDown "./Media/maps/block.png"
 textureLeft "./Media/maps/block.png"
 textureRight "./Media/maps/block.png"
-0
+1
 --0
 text "Hello world"
 move up
 --0
---1       
+--1
+text "hello industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into el"
 text "See you soon"
 --1
 --2     

@@ -2,10 +2,10 @@ texture:
 * = ./Media/maps/ground.png
 + = ./Media/maps/herb.png
 / = ./Media/maps/herb2.png
+2 = ./Media/maps/home2.png
 
 collisions:
 1 = ./Media/maps/home1.png
-2 = ./Media/maps/home2.png
 3 = ./Media/maps/home3.png
 4 = ./Media/maps/home4.png
 5 = ./Media/maps/home5.png

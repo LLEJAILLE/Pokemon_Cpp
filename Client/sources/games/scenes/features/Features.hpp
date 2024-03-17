@@ -49,12 +49,11 @@ namespace rtype {
 
             ECS::Ecs3D::IEntity &_myPlayer;
 
-            using FuncPtr = void (modules::Events::*)(const std::string &);
+            using FuncPtr = void (modules::Events::*)(const std::string &, float deltatime);
             std::map<std::string, FuncPtr> _mapFunction;
 
         private:
             float _deltaTime = 0;
-
             float frameWidth = 0;
             float frameHeight = 0;
             int currentFrame = 0;

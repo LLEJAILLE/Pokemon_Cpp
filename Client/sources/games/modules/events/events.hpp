@@ -13,8 +13,12 @@ namespace rtype::modules {
         public:
             Events() = default;
             ~Events() = default;
-            void printEvent(const std::string &action);
-            void moveEvent(const std::string &action);
+            void printEvent(const std::string &action, float deltatime);
+            void moveEvent(const std::string &action, float deltatime);
+
+
+            // ui
+            Texture2D _dialogBox = LoadTexture("./Media/ui/dialogBox.png");
     };
 }
 
