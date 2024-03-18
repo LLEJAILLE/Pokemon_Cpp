@@ -32,7 +32,10 @@ namespace rtype {
                 this->frameHeight = 50;
                 this->frameRec = { 0, 0, frameWidth, frameHeight };
 
-                this->_mapFunction["move_event"] = &modules::Events::moveUpEvent;
+                this->_mapFunction["move_eventUp"] = &modules::Events::moveUpEvent;
+                this->_mapFunction["move_eventDown"] = &modules::Events::moveDownEvent;
+                this->_mapFunction["move_eventLeft"] = &modules::Events::moveLeftEvent;
+                this->_mapFunction["move_eventRight"] = &modules::Events::moveRightEvent;
                 this->_mapFunction["text"] = &modules::Events::printEvent;
                 this->_mapFunction["lookPlayer"] = &modules::Events::lookPlayer;
             }

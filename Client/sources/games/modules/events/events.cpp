@@ -79,25 +79,76 @@ namespace rtype::modules {
         Vector2 newPosition = { _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x, _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y - 50 };
 
         while (_thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y > newPosition.y) {
-            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y -= 130 * deltatime;
+            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y -= 100 * deltatime;
             _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->actualTexture = _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->textureUp;
-            draw(camera, _map, _eventCol, _myPlayer, _stateMoving, frameRec);
+            draw(camera, _map, _eventCol, _myPlayer, _stateMoving, frameRec, _thisEvent, deltatime);
         }
-
     }
 
-    void Events::draw(Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventsCol, rtype::ECS::Ecs3D::IEntity &_myPlayer, std::string &_stateMoving, Rectangle &frameRec) {
+    void Events::moveDownEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
+        Vector2 newPosition = { _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x, _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y + 50 };
+
+        while (_thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y < newPosition.y) {
+            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y += 100 * deltatime;
+            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->actualTexture = _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->textureDown;
+            draw(camera, _map, _eventCol, _myPlayer, _stateMoving, frameRec, _thisEvent, deltatime);
+        }
+    }
+
+    void Events::moveLeftEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
+        Vector2 newPosition = { _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x - 50, _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y };
+
+        while (_thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x > newPosition.x) {
+            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x -= 100 * deltatime;
+            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->actualTexture = _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->textureLeft;
+            draw(camera, _map, _eventCol, _myPlayer, _stateMoving, frameRec, _thisEvent, deltatime);
+        }
+    }
+
+    void Events::moveRightEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
+        Vector2 newPosition = { _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x + 50, _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y };
+
+        while (_thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x < newPosition.x) {
+            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x += 100 * deltatime;
+            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->actualTexture = _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->textureRight;
+            draw(camera, _map, _eventCol, _myPlayer, _stateMoving, frameRec, _thisEvent, deltatime);
+        }
+    }
+
+    ///-----------------UTILS-----------------///
+
+    void Events::updateFrameRec(float speed, float deltatime, bool isMoving, int& currentFrame, int& framesCounter, Rectangle& frameRec, float frameWidth, float frameHeight) {
+        framesCounter++;
+        if (framesCounter > 40) {
+            currentFrame++;
+            frameRec.x = frameWidth * currentFrame;
+            if (currentFrame >= 4) {
+                currentFrame = 0;
+                frameRec.x = frameWidth * currentFrame;
+            }
+            framesCounter = 0;
+        }
+    }
+
+
+    void Events::draw(Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventsCol, rtype::ECS::Ecs3D::IEntity &_myPlayer, std::string &_stateMoving, Rectangle &frameRec, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, float deltatime) {
         BeginDrawing();
         ClearBackground(Color{255, 255, 255, 255});
+
         BeginMode2D(camera);
             for (int i = 0; i < _map.size(); i++) {
                 DrawTexture(_map[i]->getComponent<ECS::Ecs3D::Texture2d>()->texture, _map[i]->getComponent<ECS::Ecs3D::PositionComponent2d>()->position.x, _map[i]->getComponent<ECS::Ecs3D::PositionComponent2d>()->position.y, WHITE);
             }
 
-            // draw pnj
             for (int i = 0; i < _eventsCol.size(); i++) {
-                //draw the rect
-                DrawTextureRec(_eventsCol[i]->getComponent<ECS::Ecs3D::EventClickComp>()->actualTexture, {0, 0, 50, 50}, _eventsCol[i]->getComponent<ECS::Ecs3D::EventClickComp>()->position, WHITE);
+                auto eventComp = _eventsCol[i]->getComponent<ECS::Ecs3D::EventClickComp>();
+
+                if (_eventsCol[i] == _thisEvent) {
+                    updateFrameRec(150, deltatime, eventComp->isMoving, eventComp->currentFrame, eventComp->framesCounter, eventComp->frameRec, eventComp->frameWidth, eventComp->frameHeight);
+                    DrawTextureRec(eventComp->actualTexture, eventComp->frameRec, eventComp->position, WHITE);
+                } else {
+                    DrawTextureRec(eventComp->actualTexture, frameRec, eventComp->position, WHITE);
+                }
             }
 
             rtype::modules::Textures::drawSpritePlayer(_myPlayer, _stateMoving, frameRec);
