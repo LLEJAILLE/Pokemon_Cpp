@@ -115,6 +115,14 @@ namespace rtype::modules {
         }
     }
 
+    void Events::changeSwitch(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
+        std::string number = action.substr(action.find(" ") + 1);
+        int numberInt = std::stoi(number);
+
+        _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->actualNumberOfCommonSwitch = numberInt;
+    }
+
+
     ///-----------------UTILS-----------------///
 
     void Events::updateFrameRec(float speed, float deltatime, bool isMoving, int& currentFrame, int& framesCounter, Rectangle& frameRec, float frameWidth, float frameHeight) {

@@ -8,7 +8,8 @@ textureLeft "./Media/maps/block.png"
 textureRight "./Media/maps/block.png"
 0
 --0
-move_eventUp
+text "salut"
+changeSwitch 1
 --0
 --1
 text "hello industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into el"
@@ -32,12 +33,4 @@ lookPlayer
 text "Salut à toi jeune Dresseur ! Tu es dans le mode dev !"
 text "Et ceci est un test de la fonctionnalité de texte j'espère que tu apprécie le rendu !"
 text "aller je me casse bisous"
-move_eventDown
-move_eventDown
-move_eventRight
-move_eventRight
-move_eventDown
-move_eventDown
-move_eventDown
-move_eventDown
 --0

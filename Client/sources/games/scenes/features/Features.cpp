@@ -102,9 +102,15 @@ void rtype::Features::checkEventCol()
                                 (eventsInstance.*it->second)(action, this->_deltaTime, this->_eventsCol, this->_eventsCol[i], this->_dialogBox, this->_myPlayer, this->camera, this->_map, this->_stateMoving, this->frameRec);
 
                                 draw();
-                            } else {
-                                std::cout << "Function not found" << std::endl;
                             }
+                        }
+
+                        std::string lastAction = event.second.back();
+                        if (lastAction.find("changeSwitch") != lastAction.npos) {
+                            std::string number = lastAction.substr(lastAction.find(" ") + 1);
+                            int numberSwitch = std::stoi(number);
+                            this->_eventsCol[i]->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->actualNumberOfCommonSwitch = numberSwitch;
+                            break;
                         }
                     }
                 }
