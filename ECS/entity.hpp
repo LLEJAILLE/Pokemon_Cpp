@@ -45,17 +45,7 @@ namespace rtype::ECS::Ecs3D {
          */
         template <typename T, typename... Args>
         void addComponent(Args&&... args) {
-            components[typeid(T)] = std::make_shared<T>(std::forward<Args>(args)...);
-        }
-
-        /**
-         * @brief Removes the component of type T from the entity.
-         * 
-         * @tparam T The type of the component to remove.
-         */
-        template <typename T>
-        void removeComponent() {
-            components.erase(typeid(T));
+            components.emplace(typeid(T), std::make_shared<T>(std::forward<Args>(args)...));
         }
 
         /**
@@ -66,11 +56,11 @@ namespace rtype::ECS::Ecs3D {
          */
         template <typename T>
         std::shared_ptr<T> getComponent() const {
-            auto it = components.find(typeid(T));
-            if (it != components.end()) {
-                return std::dynamic_pointer_cast<T>(it->second);
+            try {
+                return std::dynamic_pointer_cast<T>(components.at(typeid(T)));
+            } catch (const std::out_of_range&) {
+                return nullptr;
             }
-            return nullptr;
         }
 
         //get component by name

@@ -40,19 +40,13 @@ namespace rtype::ECS::Ecs3D {
 
 
         std::shared_ptr<IEntity> getEntity(std::string nameTag) {
-            if (entities.find(nameTag) != entities.end()) {
-                return entities[nameTag];
-            } else {
+            try {
+                return entities.at(nameTag);
+            } catch (const std::out_of_range &e) {
+                std::cerr << "Entity not found: " << nameTag << std::endl;
                 return nullptr;
             }
         }
-
-        void editEntity(std::string nameTag, std::shared_ptr<IEntity> value) {
-            if (entities.find(nameTag) != entities.end()) {
-                entities[nameTag] = value;
-            }
-        }
-
 
         void printEntitiesWithComponents() {
             for (const auto &entity : entities) {
