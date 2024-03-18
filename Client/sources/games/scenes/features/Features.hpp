@@ -32,7 +32,7 @@ namespace rtype {
                 this->frameHeight = 50;
                 this->frameRec = { 0, 0, frameWidth, frameHeight };
 
-                this->_mapFunction["move"] = &modules::Events::moveEvent;
+                this->_mapFunction["move_event"] = &modules::Events::moveUpEvent;
                 this->_mapFunction["text"] = &modules::Events::printEvent;
                 this->_mapFunction["lookPlayer"] = &modules::Events::lookPlayer;
             }
@@ -50,8 +50,10 @@ namespace rtype {
 
             ECS::Ecs3D::IEntity &_myPlayer;
 
-            using FuncPtr = void (modules::Events::*)(const std::string &, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer);
+
+            using FuncPtr = void (modules::Events::*)(const std::string &, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec);
             std::map<std::string, FuncPtr> _mapFunction;
+
 
         private:
             Texture2D _dialogBox = LoadTexture("./Media/ui/dialogBox.png");
@@ -61,7 +63,6 @@ namespace rtype {
             int currentFrame = 0;
             int framesCounter = 0;
 
-        
             Rectangle frameRec;
             std::string _stateMoving = "";
             bool _IsMoving = false;
