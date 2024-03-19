@@ -39,8 +39,6 @@ void Game::run()
 
 
     ECS::Ecs3D::IEntity player("player");
-
-
     Image img = LoadImage("./Media/sprite_down.png");
     Image img2 = LoadImage("./Media/sprite_left.png");
     Image img3 = LoadImage("./Media/sprite_right.png");
@@ -62,8 +60,10 @@ void Game::run()
     
     
     // ------------------ MAIN LOOP ------------------ //
+    float deltaTime = 0.0f;
+
     while (!WindowShouldClose()) {
-        float deltaTime = GetFrameTime();
+        deltaTime = GetFrameTime();
         this->allScenes[this->_scene]->update(deltaTime, GetTime());
         this->allScenes[this->_scene]->draw();
     }
