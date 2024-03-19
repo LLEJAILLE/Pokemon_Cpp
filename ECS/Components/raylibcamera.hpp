@@ -8,7 +8,7 @@
 #pragma once
 #include "interface.hpp"
 
-namespace rtype::ECS::Ecs3D {
+namespace ECS::Ecs3D {
     class RayLibCameraComponent : public IComponent {
         public:
             // id of the component

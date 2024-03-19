@@ -9,19 +9,17 @@
     #include "../../modules/moves/updateMove.hpp"
     #include "../../modules/textures/textures.hpp"
     #include "../../modules/map/map.hpp"
+    #include "../../modules/parsingEvent/parsingEvent.hpp"
     #include "../../modules/events/events.hpp"
     #include <filesystem>
-
-namespace rtype {
 
     class Features : public ECS::Ecs3D::AScene {
         public:
             Features(_Scene &scene, SoundManager &soundManager, ECS::Ecs3D::IEntity &myPlayer)
             : _scene(scene), _soundManager(soundManager), _myPlayer(myPlayer)
             {
-                rtype::modules::Map::parseMap("./maps/featuresMap/featuresMap.txt", "./maps/featuresMap/featuresConfig.txt", this->_indexFilePathText, this->_indexFilePathColl, this->_collisions, this->_map);
-
-                this->parseAndFillPnj("./maps/featuresEvents.txt");
+                modules::Map::parseMap("./maps/featuresMap/featuresMap.txt", "./maps/featuresMap/featuresConfig.txt", this->_indexFilePathText, this->_indexFilePathColl, this->_collisions, this->_map);
+                modules::ParsingEvent::parseAndFillPnj("./maps/featuresEvents.txt", this->_eventsCol);
 
                 this->_stateMoving = "down";
                 this->camera.target = { static_cast<float>(GetScreenWidth() / 2), static_cast<float>(GetScreenHeight() / 2) };
@@ -45,7 +43,7 @@ namespace rtype {
             void draw() override;
             void update(float deltatime, float getTime) override;
 
-            void parseAndFillPnj(std::string path);
+            // void parseAndFillPnj(std::string path);
             void checkEventCol();
 
             SoundManager &_soundManager;
@@ -54,7 +52,7 @@ namespace rtype {
             ECS::Ecs3D::IEntity &_myPlayer;
 
 
-            using FuncPtr = void (modules::Events::*)(const std::string &, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec);
+            using FuncPtr = void (modules::Events::*)(const std::string &, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec);
             std::map<std::string, FuncPtr> _mapFunction;
 
 
@@ -84,6 +82,5 @@ namespace rtype {
 
             Camera2D camera;
     };
-}
 
 #endif /* !FEATURES_HPP_ */

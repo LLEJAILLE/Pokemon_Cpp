@@ -38,27 +38,27 @@ void Game::run()
     // ------------------ CREATE ENTITIES ------------------ //
 
 
-    rtype::ECS::Ecs3D::IEntity player("player");
+    ECS::Ecs3D::IEntity player("player");
 
 
     Image img = LoadImage("./Media/sprite_down.png");
     Image img2 = LoadImage("./Media/sprite_left.png");
     Image img3 = LoadImage("./Media/sprite_right.png");
     Image img4 = LoadImage("./Media/sprite_up.png");
-    player.addComponent<rtype::ECS::Ecs3D::PositionComponent2d>(Vector2{150, 150}, "playerPosition");
+    player.addComponent<ECS::Ecs3D::PositionComponent2d>(Vector2{150, 150}, "playerPosition");
 
-    player.addComponent<rtype::ECS::Ecs3D::TextureDown>(img, "player_down");
-    player.addComponent<rtype::ECS::Ecs3D::TextureLeft>(img2, "player_left");
-    player.addComponent<rtype::ECS::Ecs3D::TextureRight>(img3, "player_right");
-    player.addComponent<rtype::ECS::Ecs3D::TextureUp>(img4, "player_up");
+    player.addComponent<ECS::Ecs3D::TextureDown>(img, "player_down");
+    player.addComponent<ECS::Ecs3D::TextureLeft>(img2, "player_left");
+    player.addComponent<ECS::Ecs3D::TextureRight>(img3, "player_right");
+    player.addComponent<ECS::Ecs3D::TextureUp>(img4, "player_up");
 
 
-    rtype::Features featuresScene(this->_scene, _soundManager, player);
+    Features featuresScene(this->_scene, _soundManager, player);
     
-    featuresScene.addEntity(std::make_shared<rtype::ECS::Ecs3D::IEntity>(player));
+    featuresScene.addEntity(std::make_shared<ECS::Ecs3D::IEntity>(player));
 
     // ------------------ BUILDER SCENES ------------------ //
-    this->allScenes[_Scene::FEATURES] = std::make_unique<rtype::Features>(featuresScene);
+    this->allScenes[_Scene::FEATURES] = std::make_unique<Features>(featuresScene);
     
     
     // ------------------ MAIN LOOP ------------------ //

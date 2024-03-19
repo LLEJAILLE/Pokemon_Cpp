@@ -8,7 +8,6 @@
 #pragma once
 #include "interface.hpp"
 
-namespace rtype {
     namespace ECS {
         namespace Ecs3D {
             class TextAreaComp : public IComponent {
@@ -23,4 +22,3 @@ namespace rtype {
             };
         }
     }
-}

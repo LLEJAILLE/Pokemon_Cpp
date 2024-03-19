@@ -1,7 +1,7 @@
 #include "events.hpp"
 
-namespace rtype::modules {
-    void Events::lookPlayer(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
+namespace modules {
+    void Events::lookPlayer(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
         if (_myPlayer.getComponent<ECS::Ecs3D::PositionComponent2d>()->position.x > _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.x) {
             _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->actualTexture = _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->textureRight;
         } else if (_myPlayer.getComponent<ECS::Ecs3D::PositionComponent2d>()->position.x < _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.x) {
@@ -13,7 +13,7 @@ namespace rtype::modules {
         }
     }
 
-    void Events::printEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
+    void Events::printEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
         int key = 0;
         std::string formatString = action;
         formatString = formatString.substr(formatString.find("\"") + 1, formatString.rfind("\"") - formatString.find("\"") - 1);
@@ -75,47 +75,47 @@ namespace rtype::modules {
         }
     }
 
-    void Events::moveUpEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
-        Vector2 newPosition = { _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x, _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y - 50 };
+    void Events::moveUpEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
+        Vector2 newPosition = { _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.x, _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.y - 50 };
 
-        while (_thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y > newPosition.y) {
-            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y -= 100 * deltatime;
-            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->actualTexture = _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->textureUp;
+        while (_thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.y > newPosition.y) {
+            _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.y -= 100 * deltatime;
+            _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->actualTexture = _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->textureUp;
             draw(camera, _map, _eventCol, _myPlayer, _stateMoving, frameRec, _thisEvent, deltatime);
         }
     }
 
-    void Events::moveDownEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
-        Vector2 newPosition = { _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x, _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y + 50 };
+    void Events::moveDownEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
+        Vector2 newPosition = { _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.x, _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.y + 50 };
 
-        while (_thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y < newPosition.y) {
-            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y += 100 * deltatime;
-            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->actualTexture = _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->textureDown;
+        while (_thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.y < newPosition.y) {
+            _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.y += 100 * deltatime;
+            _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->actualTexture = _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->textureDown;
             draw(camera, _map, _eventCol, _myPlayer, _stateMoving, frameRec, _thisEvent, deltatime);
         }
     }
 
-    void Events::moveLeftEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
-        Vector2 newPosition = { _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x - 50, _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y };
+    void Events::moveLeftEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
+        Vector2 newPosition = { _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.x - 50, _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.y };
 
-        while (_thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x > newPosition.x) {
-            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x -= 100 * deltatime;
-            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->actualTexture = _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->textureLeft;
+        while (_thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.x > newPosition.x) {
+            _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.x -= 100 * deltatime;
+            _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->actualTexture = _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->textureLeft;
             draw(camera, _map, _eventCol, _myPlayer, _stateMoving, frameRec, _thisEvent, deltatime);
         }
     }
 
-    void Events::moveRightEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
-        Vector2 newPosition = { _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x + 50, _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.y };
+    void Events::moveRightEvent(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
+        Vector2 newPosition = { _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.x + 50, _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.y };
 
-        while (_thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x < newPosition.x) {
-            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->position.x += 100 * deltatime;
-            _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->actualTexture = _thisEvent->getComponent<rtype::ECS::Ecs3D::EventClickComp>()->textureRight;
+        while (_thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.x < newPosition.x) {
+            _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->position.x += 100 * deltatime;
+            _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->actualTexture = _thisEvent->getComponent<ECS::Ecs3D::EventClickComp>()->textureRight;
             draw(camera, _map, _eventCol, _myPlayer, _stateMoving, frameRec, _thisEvent, deltatime);
         }
     }
 
-    void Events::changeSwitch(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, rtype::ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
+    void Events::changeSwitch(const std::string &action, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec) {
         std::string number = action.substr(action.find(" ") + 1);
         int numberInt = std::stoi(number);
 
@@ -139,7 +139,7 @@ namespace rtype::modules {
     }
 
 
-    void Events::draw(Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventsCol, rtype::ECS::Ecs3D::IEntity &_myPlayer, std::string &_stateMoving, Rectangle &frameRec, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, float deltatime) {
+    void Events::draw(Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventsCol, ECS::Ecs3D::IEntity &_myPlayer, std::string &_stateMoving, Rectangle &frameRec, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, float deltatime) {
         BeginDrawing();
         ClearBackground(Color{255, 255, 255, 255});
 
@@ -159,7 +159,7 @@ namespace rtype::modules {
                 }
             }
 
-            rtype::modules::Textures::drawSpritePlayer(_myPlayer, _stateMoving, frameRec);
+            modules::Textures::drawSpritePlayer(_myPlayer, _stateMoving, frameRec);
         EndMode2D();
 
         EndDrawing();

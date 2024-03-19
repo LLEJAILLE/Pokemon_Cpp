@@ -9,8 +9,6 @@
 
 #include "../../../../Includes/Includes.hpp"
 
-namespace rtype
-{
     /**
      * @brief The SoundManager class handles the management of sound effects in the game.
      * 
@@ -43,4 +41,3 @@ namespace rtype
     protected:
     private:
     };
-}

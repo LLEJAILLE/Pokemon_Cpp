@@ -1,6 +1,6 @@
 #include "map.hpp"
 
-void rtype::modules::Map::parseMap(std::string path, std::string config, std::map<std::string, std::string> &indexFilePathText, std::map<std::string, std::string> &indexFilePathColl, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &collisions, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &map)
+void modules::Map::parseMap(std::string path, std::string config, std::map<std::string, std::string> &indexFilePathText, std::map<std::string, std::string> &indexFilePathColl, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &collisions, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &map)
 {
     std::ifstream fileconfg(config);
     std::string lineConf;
@@ -53,22 +53,22 @@ void rtype::modules::Map::parseMap(std::string path, std::string config, std::ma
             const char *file = it->second.c_str();
 
             if (it != indexFilePathText.end()) {
-                rtype::ECS::Ecs3D::IEntity entity("ground" + std::to_string(i) + std::to_string(map.size()));
-                entity.addComponent<rtype::ECS::Ecs3D::PositionComponent2d>(Vector2 {x, y}, "texturePosition");
-                entity.addComponent<rtype::ECS::Ecs3D::Texture2d>(LoadImage(file), "texture");
-                map.insert(std::pair<int, std::shared_ptr<rtype::ECS::Ecs3D::IEntity>>(map.size(), std::make_shared<rtype::ECS::Ecs3D::IEntity>(entity)));
+                ECS::Ecs3D::IEntity entity("ground" + std::to_string(i) + std::to_string(map.size()));
+                entity.addComponent<ECS::Ecs3D::PositionComponent2d>(Vector2 {x, y}, "texturePosition");
+                entity.addComponent<ECS::Ecs3D::Texture2d>(LoadImage(file), "texture");
+                map.insert(std::pair<int, std::shared_ptr<ECS::Ecs3D::IEntity>>(map.size(), std::make_shared<ECS::Ecs3D::IEntity>(entity)));
             }
 
             auto itColl = indexFilePathColl.find(std::string(1, line[i]));
             const char *fileColl = itColl->second.c_str();
 
             if (itColl != indexFilePathColl.end()) {
-                rtype::ECS::Ecs3D::IEntity entity("coll" + std::to_string(i) + std::to_string(collisions.size()));
-                entity.addComponent<rtype::ECS::Ecs3D::PositionComponent2d>(Vector2 {x, y}, "texturePosition");
-                entity.addComponent<rtype::ECS::Ecs3D::Texture2d>(LoadImage(fileColl), "texture");
+                ECS::Ecs3D::IEntity entity("coll" + std::to_string(i) + std::to_string(collisions.size()));
+                entity.addComponent<ECS::Ecs3D::PositionComponent2d>(Vector2 {x, y}, "texturePosition");
+                entity.addComponent<ECS::Ecs3D::Texture2d>(LoadImage(fileColl), "texture");
 
-                map.insert(std::pair<int, std::shared_ptr<rtype::ECS::Ecs3D::IEntity>>(map.size(), std::make_shared<rtype::ECS::Ecs3D::IEntity>(entity)));
-                collisions.insert(std::pair<int, std::shared_ptr<rtype::ECS::Ecs3D::IEntity>>(collisions.size(), std::make_shared<rtype::ECS::Ecs3D::IEntity>(entity)));
+                map.insert(std::pair<int, std::shared_ptr<ECS::Ecs3D::IEntity>>(map.size(), std::make_shared<ECS::Ecs3D::IEntity>(entity)));
+                collisions.insert(std::pair<int, std::shared_ptr<ECS::Ecs3D::IEntity>>(collisions.size(), std::make_shared<ECS::Ecs3D::IEntity>(entity)));
             }
 
         }

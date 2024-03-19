@@ -7,18 +7,18 @@
 
 #include "./soundManager.hpp"
 
-rtype::SoundManager::SoundManager()
+SoundManager::SoundManager()
 {
 }
 
-rtype::SoundManager::~SoundManager()
+SoundManager::~SoundManager()
 {
 }
 
-void rtype::SoundManager::updateListener(Vector3 position, Vector3 direction)
+void SoundManager::updateListener(Vector3 position, Vector3 direction)
 {
 }
 
-void rtype::SoundManager::updateVolume(std::string type, float volume)
+void SoundManager::updateVolume(std::string type, float volume)
 {
 }

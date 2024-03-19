@@ -10,7 +10,7 @@
 #include "position3d.hpp"
 #include "velocity.hpp"
 
-namespace rtype::ECS::Ecs3D {
+namespace ECS::Ecs3D {
     class GravityComponent : public IComponent {
         public:
             float gravity;

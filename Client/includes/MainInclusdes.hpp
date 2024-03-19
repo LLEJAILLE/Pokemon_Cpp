@@ -128,7 +128,7 @@ static const std::map<int, std::string> inputKeyBoardMap = {
 
 };
 
-namespace rtype::ECS::Ecs3D {
+namespace ECS::Ecs3D {
 
     // file path : sources/game/Builder.cpp
     void builderImg(std::string name, std::string filepathImage, AScene &scene);
@@ -153,7 +153,7 @@ namespace rtype::ECS::Ecs3D {
     void buildMyPlayer(std::string name, Vector3 position, AScene &game);
     std::shared_ptr<IEntity> createBoxWithText(std::string name, Rectangle rec, std::string text, Font font, int fontSize, Color color, int spacing);
     std::vector<std::shared_ptr<IEntity>> builderHeaderWithButton(std::string name, std::string filepath, std::string filepath2, std::string text, Rectangle position, Font font, float height, float width, float height2, float width2);
-    std::map<std::string, std::vector<std::shared_ptr<rtype::ECS::Ecs3D::IEntity>>> BuilderParam(std::map<std::string, std::string> params, Rectangle rectangle, Font font, Color textColor, float fontSize);
+    std::map<std::string, std::vector<std::shared_ptr<ECS::Ecs3D::IEntity>>> BuilderParam(std::map<std::string, std::string> params, Rectangle rectangle, Font font, Color textColor, float fontSize);
 
     // file path : sources/game/scenes/SystemLoginScene.cpp
     void systemLoginScene(std::shared_ptr<IEntity> close, std::shared_ptr<IEntity> usernameTextArea, std::shared_ptr<IEntity> passwordTextArea, std::shared_ptr<IEntity> login);
@@ -168,7 +168,7 @@ namespace rtype::ECS::Ecs3D {
     void hoverEffect(std::shared_ptr<IEntity> button);
     void UpdateHoverEffect(std::initializer_list<std::shared_ptr<IEntity>> entities);
     void systemButtonUpdatePlace(_Scene &actualScene, std::initializer_list<std::shared_ptr<IEntity>> entities, _Scene lastScene = _Scene::LOADING);
-    void systemModelAnimation(std::shared_ptr<rtype::ECS::Ecs3D::Model3d> model3D, float animationSpeed, int indexAnim, float deltatime);
+    void systemModelAnimation(std::shared_ptr<ECS::Ecs3D::Model3d> model3D, float animationSpeed, int indexAnim, float deltatime);
 
     static const std::string GetKeyName(int key, bool onlyLetter = false) {
         std::string Qwerty = "aAmMqQwWzZ;:,./?%*$&'-@<>[]{}";

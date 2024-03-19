@@ -9,7 +9,7 @@
 #include "interface.hpp"
 #include "position2d.hpp"
 
-namespace rtype::ECS::Ecs3D {
+namespace ECS::Ecs3D {
     class Health : public IComponent {
         public:
             std::string id;

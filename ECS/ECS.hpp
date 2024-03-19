@@ -6,5 +6,4 @@
 */
 
 #pragma once
-#include "game.hpp"
 #include "AScene.hpp"

@@ -17,21 +17,17 @@ class Game {
     public:
         Game();
         ~Game();
-        void detach()
-        {
-            // create the thread
-        }
 
         void run();
 
     protected:
 
     private:
-        rtype::SoundManager _soundManager;
+        SoundManager _soundManager;
 
     private:
         _Scene _scene;
-        std::map<_Scene, std::shared_ptr<rtype::ECS::Ecs3D::AScene>> allScenes;
+        std::map<_Scene, std::shared_ptr<ECS::Ecs3D::AScene>> allScenes;
         std::map<std::string, std::vector<int>> _historyValues;
 
     private:

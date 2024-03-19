@@ -8,13 +8,13 @@
     #include "../../../../includes/MainInclusdes.hpp"
     #include <filesystem>
 
-namespace rtype::modules {
+namespace modules {
     class Textures {
         Textures() = default;
         ~Textures() = default;
 
         public:
-            static void drawSpritePlayer(rtype::ECS::Ecs3D::IEntity& myPlayer, std::string& stateMoving, Rectangle& frameRec);
+            static void drawSpritePlayer(ECS::Ecs3D::IEntity& myPlayer, std::string& stateMoving, Rectangle& frameRec);
             static void updateTexture(float speed, float deltatime, bool isMoving, int& currentFrame, int& framesCounter, Rectangle& frameRec, float frameWidth, float frameHeight);
     };
 }

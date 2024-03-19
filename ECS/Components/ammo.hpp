@@ -9,7 +9,6 @@
 #include "interface.hpp"
 #include "position2d.hpp"
 
-namespace rtype {
     namespace ECS {
         namespace Ecs3D {
             class AmmoComponent : public IComponent {
@@ -25,4 +24,3 @@ namespace rtype {
             };
         }
     }
-}

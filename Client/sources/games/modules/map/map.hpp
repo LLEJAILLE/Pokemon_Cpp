@@ -8,7 +8,7 @@
     #include "../../../../includes/MainInclusdes.hpp"
     #include <filesystem>
 
-namespace rtype::modules {
+namespace modules {
     class Map {
         Map() = default;
         ~Map() = default;

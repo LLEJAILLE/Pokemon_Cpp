@@ -8,7 +8,6 @@
 #pragma once
 #include "interface.hpp"
 
-namespace rtype {
     namespace ECS {
         namespace Ecs3D {
             class FontComponent : public IComponent {
@@ -28,4 +27,3 @@ namespace rtype {
             };
         }
     }
-}
