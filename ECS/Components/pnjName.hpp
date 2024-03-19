@@ -8,7 +8,7 @@
 #pragma once
 #include "interface.hpp"
 
-namespace ECS::Ecs3D {
+namespace ECS {
     class PnjNameComponent : public IComponent {
         public:
             std::string id;

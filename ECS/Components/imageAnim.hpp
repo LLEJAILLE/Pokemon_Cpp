@@ -8,7 +8,7 @@
 #pragma once
 #include "interface.hpp"
 
-namespace ECS::Ecs3D {
+namespace ECS {
     class ImageAnim : public IComponent {
         public:
             Image image;

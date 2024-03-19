@@ -8,7 +8,7 @@
 #pragma once
 #include "interface.hpp"
 
-namespace ECS::Ecs3D {
+namespace ECS {
     class ObjectTransform : public IComponent {
         private:
             Vector3 Position = { 0 };

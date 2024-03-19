@@ -10,7 +10,7 @@
 #include <map>
 #include <typeindex>
 
-namespace ECS::Ecs3D {
+namespace ECS {
     /**
      * @brief Interface for an entity in the ECS system.
      */

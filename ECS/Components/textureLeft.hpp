@@ -8,7 +8,7 @@
 #pragma once
 #include "interface.hpp"
 
-namespace ECS::Ecs3D {
+namespace ECS {
     class TextureLeft : public IComponent {
         public:
             Texture2D texture;

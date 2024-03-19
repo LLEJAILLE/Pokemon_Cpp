@@ -8,7 +8,7 @@
 #pragma once
 #include "interface.hpp"
 
-namespace ECS::Ecs3D {
+namespace ECS {
     class PositionComponent3d : public IComponent {
         public:
             Vector3 position;

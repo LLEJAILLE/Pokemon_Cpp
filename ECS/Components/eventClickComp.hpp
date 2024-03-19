@@ -1,7 +1,7 @@
 #pragma once
 #include "interface.hpp"
 
-namespace ECS::Ecs3D {
+namespace ECS {
     class EventClickComp : public IComponent {
         public:
             int numberEvent;

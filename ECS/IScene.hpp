@@ -11,7 +11,7 @@
 #include <memory>
 
 
-namespace ECS::Ecs3D {
+namespace ECS {
     /**
      * @brief Interface for a 3D scene in the ECS system.
      */

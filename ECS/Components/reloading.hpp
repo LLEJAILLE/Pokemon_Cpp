@@ -10,7 +10,6 @@
 #include "position2d.hpp"
 
     namespace ECS {
-        namespace Ecs3D {
             class ReloadingComponent : public IComponent {
                 public:
                     std::string id;
@@ -24,5 +23,4 @@
 
                     std::string getName() const override { return id; }
             };
-        }
     }

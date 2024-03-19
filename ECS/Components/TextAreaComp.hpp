@@ -9,7 +9,6 @@
 #include "interface.hpp"
 
     namespace ECS {
-        namespace Ecs3D {
             class TextAreaComp : public IComponent {
                 public:
                     std::string id;
@@ -20,5 +19,4 @@
 
                     std::string getName() const override { return id; }
             };
-        }
     }

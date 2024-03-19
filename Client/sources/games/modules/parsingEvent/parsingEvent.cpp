@@ -1,6 +1,6 @@
 #include "parsingEvent.hpp"
 
-void modules::ParsingEvent::parseAndFillPnj(std::string path, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventsCol)
+void modules::ParsingEvent::parseAndFillPnj(std::string path, std::map<int, std::shared_ptr<ECS::IEntity>> &_eventsCol)
 {
     std::ifstream file("./maps/featuresMap/featuresEvents.txt");
     std::string line;
@@ -59,15 +59,15 @@ void modules::ParsingEvent::parseAndFillPnj(std::string path, std::map<int, std:
                     }
                 }
 
-                ECS::Ecs3D::IEntity event("event " + std::to_string(numberEvent));
+                ECS::IEntity event("event " + std::to_string(numberEvent));
                 Texture2D textureUp = LoadTexture(pathTextUp.c_str());
                 Texture2D textureDown = LoadTexture(pathTextDown.c_str());
                 Texture2D textureLeft = LoadTexture(pathTextLeft.c_str());
                 Texture2D textureRight = LoadTexture(pathTextRight.c_str());
 
-                event.addComponent<ECS::Ecs3D::EventClickComp>("event " + std::to_string(numberEvent), type, numberEvent, nameEvent, Vector2{x, y}, textureUp, textureDown, textureLeft, textureRight, numberOfCommonSwitch, events);
+                event.addComponent<ECS::EventClickComp>("event " + std::to_string(numberEvent), type, numberEvent, nameEvent, Vector2{x, y}, textureUp, textureDown, textureLeft, textureRight, numberOfCommonSwitch, events);
 
-                _eventsCol.insert(std::pair<int, std::shared_ptr<ECS::Ecs3D::IEntity>>(_eventsCol.size(), std::make_shared<ECS::Ecs3D::IEntity>(event)));
+                _eventsCol.insert(std::pair<int, std::shared_ptr<ECS::IEntity>>(_eventsCol.size(), std::make_shared<ECS::IEntity>(event)));
             }
         }
     }

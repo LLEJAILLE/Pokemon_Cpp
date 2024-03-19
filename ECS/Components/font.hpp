@@ -9,7 +9,6 @@
 #include "interface.hpp"
 
     namespace ECS {
-        namespace Ecs3D {
             class FontComponent : public IComponent {
                 public:
                     std::string id;
@@ -26,4 +25,3 @@
                         std::string getName() const override { return id; }
             };
         }
-    }

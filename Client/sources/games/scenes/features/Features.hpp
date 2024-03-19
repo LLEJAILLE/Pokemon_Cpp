@@ -13,9 +13,9 @@
     #include "../../modules/events/events.hpp"
     #include <filesystem>
 
-    class Features : public ECS::Ecs3D::AScene {
+    class Features : public ECS::AScene {
         public:
-            Features(_Scene &scene, SoundManager &soundManager, ECS::Ecs3D::IEntity &myPlayer)
+            Features(_Scene &scene, SoundManager &soundManager, ECS::IEntity &myPlayer)
             : _scene(scene), _soundManager(soundManager), _myPlayer(myPlayer)
             {
                 modules::Map::parseMap("./maps/featuresMap/featuresMap.txt", "./maps/featuresMap/featuresConfig.txt", this->_indexFilePathText, this->_indexFilePathColl, this->_collisions, this->_map);
@@ -49,10 +49,10 @@
             SoundManager &_soundManager;
             _Scene &_scene;
 
-            ECS::Ecs3D::IEntity &_myPlayer;
+            ECS::IEntity &_myPlayer;
 
 
-            using FuncPtr = void (modules::Events::*)(const std::string &, float deltatime, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventCol, std::shared_ptr<ECS::Ecs3D::IEntity> &_thisEvent, Texture2D &dialogBox, ECS::Ecs3D::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec);
+            using FuncPtr = void (modules::Events::*)(const std::string &, float deltatime, std::map<int, std::shared_ptr<ECS::IEntity>> &_eventCol, std::shared_ptr<ECS::IEntity> &_thisEvent, Texture2D &dialogBox, ECS::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec);
             std::map<std::string, FuncPtr> _mapFunction;
 
 
@@ -72,13 +72,13 @@
             Vector2 _PositionEnd = {0, 0};
 
 
-            std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> _map;
-            std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> _collisions;
+            std::map<int, std::shared_ptr<ECS::IEntity>> _map;
+            std::map<int, std::shared_ptr<ECS::IEntity>> _collisions;
             std::map<std::string, std::string> _indexFilePathText;
             std::map<std::string, std::string> _indexFilePathColl;
 
-            std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> _eventsCol;
-            std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> _eventsHover;
+            std::map<int, std::shared_ptr<ECS::IEntity>> _eventsCol;
+            std::map<int, std::shared_ptr<ECS::IEntity>> _eventsHover;
 
             Camera2D camera;
     };

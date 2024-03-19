@@ -27,7 +27,7 @@ class Game {
 
     private:
         _Scene _scene;
-        std::map<_Scene, std::shared_ptr<ECS::Ecs3D::AScene>> allScenes;
+        std::map<_Scene, std::shared_ptr<ECS::AScene>> allScenes;
         std::map<std::string, std::vector<int>> _historyValues;
 
     private:

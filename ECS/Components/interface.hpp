@@ -8,7 +8,7 @@
 #pragma once
 #include "../common.hpp"
 
-namespace ECS::Ecs3D {
+namespace ECS {
     class IComponent {
         public:
             virtual ~IComponent() = default;

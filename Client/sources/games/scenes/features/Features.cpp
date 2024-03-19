@@ -14,9 +14,9 @@ void Features::checkEventCol()
     auto eventsInstance = modules::Events();
     if (IsKeyPressed(KEY_SPACE)) {
         for (int i = 0; i < this->_eventsCol.size(); i++) {
-            if (this->_myPlayer.getComponent<ECS::Ecs3D::PositionComponent2d>()->position.x + 50 >= this->_eventsCol[i]->getComponent<ECS::Ecs3D::EventClickComp>()->position.x && this->_myPlayer.getComponent<ECS::Ecs3D::PositionComponent2d>()->position.x <= this->_eventsCol[i]->getComponent<ECS::Ecs3D::EventClickComp>()->position.x + 50 && this->_myPlayer.getComponent<ECS::Ecs3D::PositionComponent2d>()->position.y + 50 >= this->_eventsCol[i]->getComponent<ECS::Ecs3D::EventClickComp>()->position.y && this->_myPlayer.getComponent<ECS::Ecs3D::PositionComponent2d>()->position.y <= this->_eventsCol[i]->getComponent<ECS::Ecs3D::EventClickComp>()->position.y + 50) {                
-                for (const auto &event : this->_eventsCol[i]->getComponent<ECS::Ecs3D::EventClickComp>()->events) {
-                    if (event.first == this->_eventsCol[i]->getComponent<ECS::Ecs3D::EventClickComp>()->actualNumberOfCommonSwitch) {
+            if (this->_myPlayer.getComponent<ECS::PositionComponent2d>()->position.x + 50 >= this->_eventsCol[i]->getComponent<ECS::EventClickComp>()->position.x && this->_myPlayer.getComponent<ECS::PositionComponent2d>()->position.x <= this->_eventsCol[i]->getComponent<ECS::EventClickComp>()->position.x + 50 && this->_myPlayer.getComponent<ECS::PositionComponent2d>()->position.y + 50 >= this->_eventsCol[i]->getComponent<ECS::EventClickComp>()->position.y && this->_myPlayer.getComponent<ECS::PositionComponent2d>()->position.y <= this->_eventsCol[i]->getComponent<ECS::EventClickComp>()->position.y + 50) {                
+                for (const auto &event : this->_eventsCol[i]->getComponent<ECS::EventClickComp>()->events) {
+                    if (event.first == this->_eventsCol[i]->getComponent<ECS::EventClickComp>()->actualNumberOfCommonSwitch) {
                         for (const auto &action : event.second) {
                             std::string firstWord;
                             std::istringstream iss(action);
@@ -34,7 +34,7 @@ void Features::checkEventCol()
                         if (lastAction.find("changeSwitch") != lastAction.npos) {
                             std::string number = lastAction.substr(lastAction.find(" ") + 1);
                             int numberSwitch = std::stoi(number);
-                            this->_eventsCol[i]->getComponent<ECS::Ecs3D::EventClickComp>()->actualNumberOfCommonSwitch = numberSwitch;
+                            this->_eventsCol[i]->getComponent<ECS::EventClickComp>()->actualNumberOfCommonSwitch = numberSwitch;
                             break;
                         }
                     }
@@ -52,12 +52,12 @@ void Features::draw()
             DrawFPS(10, 10);
 
             for (int i = 0; i < this->_map.size(); i++) {
-                DrawTexture(this->_map[i]->getComponent<ECS::Ecs3D::Texture2d>()->texture, this->_map[i]->getComponent<ECS::Ecs3D::PositionComponent2d>()->position.x, this->_map[i]->getComponent<ECS::Ecs3D::PositionComponent2d>()->position.y, WHITE);
+                DrawTexture(this->_map[i]->getComponent<ECS::Texture2d>()->texture, this->_map[i]->getComponent<ECS::PositionComponent2d>()->position.x, this->_map[i]->getComponent<ECS::PositionComponent2d>()->position.y, WHITE);
             }
 
             // draw pnj
             for (int i = 0; i < this->_eventsCol.size(); i++) {
-                DrawTextureRec(this->_eventsCol[i]->getComponent<ECS::Ecs3D::EventClickComp>()->actualTexture, {0, 0, 50, 50}, this->_eventsCol[i]->getComponent<ECS::Ecs3D::EventClickComp>()->position, WHITE);
+                DrawTextureRec(this->_eventsCol[i]->getComponent<ECS::EventClickComp>()->actualTexture, {0, 0, 50, 50}, this->_eventsCol[i]->getComponent<ECS::EventClickComp>()->position, WHITE);
             }
 
             modules::Textures::drawSpritePlayer(this->_myPlayer, this->_stateMoving, this->frameRec);
@@ -70,8 +70,8 @@ void Features::draw()
 void Features::update(float deltatime, float getTime)
 {
     this->_deltaTime = deltatime;
-    this->camera.target.x = this->_myPlayer.getComponent<ECS::Ecs3D::PositionComponent2d>()->position.x + 25;
-    this->camera.target.y = this->_myPlayer.getComponent<ECS::Ecs3D::PositionComponent2d>()->position.y + 25;
+    this->camera.target.x = this->_myPlayer.getComponent<ECS::PositionComponent2d>()->position.x + 25;
+    this->camera.target.y = this->_myPlayer.getComponent<ECS::PositionComponent2d>()->position.y + 25;
 
     // update moving here
     modules::Textures::updateTexture(30.0f, deltatime, this->_IsMoving, this->currentFrame, this->framesCounter, this->frameRec, this->frameWidth, this->frameHeight);

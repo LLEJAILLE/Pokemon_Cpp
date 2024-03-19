@@ -8,7 +8,7 @@
 #pragma once
 #include "position3d.hpp"
 
-namespace ECS::Ecs3D {
+namespace ECS {
     class HitboxGravityComponent : public IComponent {
         public:
             // drawcubewires

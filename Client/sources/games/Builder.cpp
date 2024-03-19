@@ -25,7 +25,7 @@ static std::vector<std::string> split(std::string str, std::string sep)
     return result;
 }
 
-namespace ECS::Ecs3D {
+namespace ECS {
     void builderImg(std::string name, std::string filepathImage, AScene &scene)
     {
         IEntity backgroundMenu(name);
@@ -236,9 +236,9 @@ namespace ECS::Ecs3D {
         return (tmp);
     }
 
-    std::map<std::string, std::vector<std::shared_ptr<ECS::Ecs3D::IEntity>>> BuilderParam(std::map<std::string, std::string> params, Rectangle rectangle, Font font, Color textColor, float fontSize)
+    std::map<std::string, std::vector<std::shared_ptr<ECS::IEntity>>> BuilderParam(std::map<std::string, std::string> params, Rectangle rectangle, Font font, Color textColor, float fontSize)
     {
-        std::map<std::string, std::vector<std::shared_ptr<ECS::Ecs3D::IEntity>>> map;
+        std::map<std::string, std::vector<std::shared_ptr<ECS::IEntity>>> map;
         float maxTextWidth = 0.0f;
 
         for (const auto& text : params) {
@@ -255,18 +255,18 @@ namespace ECS::Ecs3D {
 
         std::string key = "undefined";
         for (const auto& text : params) {
-            std::vector<std::shared_ptr<ECS::Ecs3D::IEntity>> tmp;
+            std::vector<std::shared_ptr<ECS::IEntity>> tmp;
 
             if (text.second.find("Coche") != std::string::npos) {
                 key = "Coche";
                 tmp = {
-                    ECS::Ecs3D::createText(text.first, text.first, {xText, y}, font, fontSize, textColor, 0),
-                    ECS::Ecs3D::createBoxWithText(text.first, {xText + maxTextWidth + 20.0f, y + 10.0f, 20, 20}, text.first, font, fontSize, textColor, 0)};
+                    ECS::createText(text.first, text.first, {xText, y}, font, fontSize, textColor, 0),
+                    ECS::createBoxWithText(text.first, {xText + maxTextWidth + 20.0f, y + 10.0f, 20, 20}, text.first, font, fontSize, textColor, 0)};
             } else if (text.second.find("JaugeBar") != std::string::npos) {
                 key = "JaugeBar";
                 tmp = {
-                    ECS::Ecs3D::createText(text.first, text.first, {xText, y}, font, fontSize, textColor, 0),
-                    ECS::Ecs3D::createBox(text.first, {xText + maxTextWidth + 20.0f, y, 300, 40})};
+                    ECS::createText(text.first, text.first, {xText, y}, font, fontSize, textColor, 0),
+                    ECS::createBox(text.first, {xText + maxTextWidth + 20.0f, y, 300, 40})};
             } else if (text.second.find("Select") != std::string::npos) {
                 key = "Select";
                 std::vector<std::string> choice = split(text.first, "/");
@@ -276,18 +276,18 @@ namespace ECS::Ecs3D {
                 if (choice.size() != 4)
                     continue;
                 tmp = {
-                    ECS::Ecs3D::createBoxWithText(choice[1], {xText + maxTextWidth + 20.0f, y, sizeText1, 50}, choice[1], font, fontSize, textColor, 0),
-                    ECS::Ecs3D::createBoxWithText(choice[2], {xText + maxTextWidth + 40.0f + sizeText1, y, sizeText2, 50}, choice[2] , font, fontSize, textColor, 0),
-                    ECS::Ecs3D::createBoxWithText(choice[3] + "+", {xText + maxTextWidth + 60.0f + sizeText1 + sizeText2, y, sizeText3, 50}, choice[3], font, fontSize, textColor, 0),
-                    ECS::Ecs3D::createText(choice[0], choice[0], {xText, y + 10.0f}, font, fontSize, textColor, 0)
+                    ECS::createBoxWithText(choice[1], {xText + maxTextWidth + 20.0f, y, sizeText1, 50}, choice[1], font, fontSize, textColor, 0),
+                    ECS::createBoxWithText(choice[2], {xText + maxTextWidth + 40.0f + sizeText1, y, sizeText2, 50}, choice[2] , font, fontSize, textColor, 0),
+                    ECS::createBoxWithText(choice[3] + "+", {xText + maxTextWidth + 60.0f + sizeText1 + sizeText2, y, sizeText3, 50}, choice[3], font, fontSize, textColor, 0),
+                    ECS::createText(choice[0], choice[0], {xText, y + 10.0f}, font, fontSize, textColor, 0)
                 };
             } else if (text.second.find("Increment") != std::string::npos) {
                 key = "Increment";
                 tmp = {
-                    ECS::Ecs3D::createBoxWithText(text.first + "-", {xText + maxTextWidth + 20.0f, y, 50, 50}, "-", font, fontSize, textColor, 0),
-                    ECS::Ecs3D::createBoxWithText(text.first, {xText + maxTextWidth + 80.0f, y, 180, 50}, text.first , font, fontSize, textColor, 0),
-                    ECS::Ecs3D::createBoxWithText(text.first + "+", {xText + maxTextWidth + 270.0f, y, 50, 50}, "+", font, fontSize, textColor, 0),
-                    ECS::Ecs3D::createText(text.first, text.first, {xText, y + 10.0f}, font, fontSize, textColor, 0)
+                    ECS::createBoxWithText(text.first + "-", {xText + maxTextWidth + 20.0f, y, 50, 50}, "-", font, fontSize, textColor, 0),
+                    ECS::createBoxWithText(text.first, {xText + maxTextWidth + 80.0f, y, 180, 50}, text.first , font, fontSize, textColor, 0),
+                    ECS::createBoxWithText(text.first + "+", {xText + maxTextWidth + 270.0f, y, 50, 50}, "+", font, fontSize, textColor, 0),
+                    ECS::createText(text.first, text.first, {xText, y + 10.0f}, font, fontSize, textColor, 0)
                 };
             }
 

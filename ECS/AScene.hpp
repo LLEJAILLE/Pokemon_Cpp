@@ -10,7 +10,7 @@
 #include "entity.hpp"
 #include "IScene.hpp"
 
-namespace ECS::Ecs3D {
+namespace ECS {
     class AScene {
     public:
         virtual ~AScene() = default;

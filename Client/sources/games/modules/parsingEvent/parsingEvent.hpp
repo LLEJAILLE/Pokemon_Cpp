@@ -14,7 +14,7 @@ namespace modules {
         ~ParsingEvent() = default;
 
         public:
-            static void parseAndFillPnj(std::string path, std::map<int, std::shared_ptr<ECS::Ecs3D::IEntity>> &_eventsCol);
+            static void parseAndFillPnj(std::string path, std::map<int, std::shared_ptr<ECS::IEntity>> &_eventsCol);
     };
 }
 
