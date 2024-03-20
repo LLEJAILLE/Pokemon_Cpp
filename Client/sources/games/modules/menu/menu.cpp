@@ -1,37 +1,53 @@
 #include "menu.hpp"
 
 namespace modules {
-    void goToPokedex(ECS::IEntity& player, int &key) {
+    void goToPokedex(ECS::IEntity& player, int &key, bool &reOpenMenu) {
         std::cout << "go to pokedex" << std::endl;
     }
 
-    void goToPokemon(ECS::IEntity& player, int &key) {
+    void goToPokemon(ECS::IEntity& player, int &key, bool &reOpenMenu) {
         std::cout << "go to pokemon" << std::endl;
     }
 
-    void goToItem(ECS::IEntity& player, int &key) {
+    void goToItem(ECS::IEntity& player, int &key, bool &reOpenMenu) {
         std::cout << "go to item" << std::endl;
     }
 
-    void goToPlayerInfo(ECS::IEntity& player, int &key) {
-        std::cout << player.getComponent<ECS::InfosPlayer>()->name << std::endl;
-        std::cout << player.getComponent<ECS::InfosPlayer>()->idPlayer << std::endl;
+    void goToPlayerInfo(ECS::IEntity& player, int &key, bool &reOpenMenu) {
+        int keyCardPlayer = 0;
+        std::string time = std::to_string(player.getComponent<ECS::InfosPlayer>()->hoursPlayed) + ":" +  std::to_string(player.getComponent<ECS::InfosPlayer>()->minutesPlayed);
+
+        while (keyCardPlayer != KEY_X) {
+            BeginDrawing();
+                DrawRectangle(0, 0, 1920, 1080, WHITE);
+                DrawText("NAME", 100, 50, 35, BLACK);
+                DrawText(player.getComponent<ECS::InfosPlayer>()->name.c_str(), 355, 50, 35, BLACK);
+                DrawText("MONEY ", 100, 125, 35, BLACK);
+                DrawText(std::to_string(player.getComponent<ECS::InfosPlayer>()->pokeDollar).c_str(), 355, 125, 35, BLACK);
+                DrawText("TIME", 100, 200, 35, BLACK);
+                DrawText(time.c_str(), 355, 200, 35, BLACK);
+            EndDrawing();
+
+            keyCardPlayer = GetKeyPressed();
+        }
+        key = 88;
+        reOpenMenu = true;
     }
 
-    void goToSave(ECS::IEntity& player, int &key) {
+    void goToSave(ECS::IEntity& player, int &key, bool &reOpenMenu) {
         std::cout << "go to save" << std::endl;
     }
 
-    void goToOption(ECS::IEntity& player, int &key) {
+    void goToOption(ECS::IEntity& player, int &key, bool &reOpenMenu) {
         std::cout << "go to option" << std::endl;
     }
 
-    void goToExit(ECS::IEntity& player, int &key) {
+    void goToExit(ECS::IEntity& player, int &key, bool &reOpenMenu) {
+        std::cout << "go to exit" << std::endl;
         key = 88;
-        std::cout << key << std::endl;
     }
 
-    using MenuFunctionPtr = void (*)(ECS::IEntity& player, int& key);
+    using MenuFunctionPtr = void (*)(ECS::IEntity& player, int& key, bool &reOpenMenu);
     MenuFunctionPtr menuFunctions[] = {
         goToPokedex,
         goToPokemon,
@@ -43,7 +59,7 @@ namespace modules {
     };
 
 
-    void Menu::openMenu(bool &waitBeforeOpenMenu, bool &_IsMoving, Texture2D &_menu, Texture2D &_cursor, Vector2 &_cursorPos, ECS::IEntity& player) {
+    void Menu::openMenu(bool &waitBeforeOpenMenu, bool &_IsMoving, Texture2D &_menu, Texture2D &_cursor, Vector2 &_cursorPos, ECS::IEntity& player, Camera2D &camera, std::map<int, std::shared_ptr<ECS::IEntity>> &_map, std::map<int, std::shared_ptr<ECS::IEntity>> &_eventsCol, std::string &_stateMoving, Rectangle &frameRec) {
         int _stateMenu = 0;
 
         if (IsKeyPressed(KEY_X)) {
@@ -52,7 +68,7 @@ namespace modules {
 
         if ((IsKeyPressed(KEY_X) && _IsMoving == false) || (_IsMoving == false && waitBeforeOpenMenu == true)) {
             int key = 0;
-
+            bool reOpenMenu = false;
             while (key != KEY_X) {
                 BeginDrawing();
                     DrawTextureEx(_menu, {1620, 0}, 0, 1.5, WHITE);
@@ -65,8 +81,7 @@ namespace modules {
                     DrawText("EXIT", 1700, 500, 35, BLACK);
 
                     DrawTextureEx(_cursor, _cursorPos, 0, 0.5, WHITE);
-                EndDrawing();
-                
+                EndDrawing();                
 
                 if (key == KEY_DOWN) {
                     if (_cursorPos.y < 500) {
@@ -82,13 +97,45 @@ namespace modules {
                 key = GetKeyPressed();
 
                 if (key == 32 && menuFunctions[_stateMenu] != nullptr) {
-                    menuFunctions[_stateMenu](player, key);
+                    menuFunctions[_stateMenu](player, key, reOpenMenu);
                 }
-
             }
+
+            draw(camera, _map, _eventsCol, player, _stateMoving, frameRec);
+
+            if (reOpenMenu == true) {
+                _stateMenu = 0;
+                reOpenMenu = false;
+                _cursorPos.y = 50;
+                openMenu(waitBeforeOpenMenu, _IsMoving, _menu, _cursor, _cursorPos, player, camera, _map, _eventsCol, _stateMoving, frameRec);
+            }
+
 
             waitBeforeOpenMenu = false;
             _cursorPos.y = 50;
         }
     }
+
+    void Menu::draw(Camera2D &camera, std::map<int, std::shared_ptr<ECS::IEntity>> &_map, std::map<int, std::shared_ptr<ECS::IEntity>> &_eventsCol, ECS::IEntity &_myPlayer, std::string &_stateMoving, Rectangle &frameRec) {
+        BeginDrawing();
+        DrawFPS(10, 10);
+        ClearBackground(WHITE);
+        BeginMode2D(camera);
+            for (int i = 0; i < _map.size(); i++) {
+                DrawTexture(_map[i]->getComponent<ECS::Texture2d>()->texture, _map[i]->getComponent<ECS::PositionComponent2d>()->position.x, _map[i]->getComponent<ECS::PositionComponent2d>()->position.y, WHITE);
+            }
+
+            // draw pnj
+            for (int i = 0; i < _eventsCol.size(); i++) {
+                DrawTextureRec(_eventsCol[i]->getComponent<ECS::EventClickComp>()->actualTexture, {0, 0, 50, 50}, _eventsCol[i]->getComponent<ECS::EventClickComp>()->position, WHITE);
+            }
+
+            modules::Textures::drawSpritePlayer(_myPlayer, _stateMoving, frameRec);
+
+
+        EndMode2D();
+
+        EndDrawing();
+    }
+
 }

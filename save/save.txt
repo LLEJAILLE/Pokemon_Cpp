@@ -1,0 +1,10 @@
+[Player Infos]
+Nom du joueur: "RED"
+ID du joueur: "17109504606834381"
+Position du joueur: 5 5
+Temps écoulé: 00:00
+
+[Player Inventory]
+1: 10
+2: 20
+3: 5

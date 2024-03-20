@@ -18,9 +18,12 @@ namespace ECS {
             int nbBadges;
             int hoursPlayed;
             int minutesPlayed;
+            std::vector<std::pair<int, int>> _inventoryPlayer;
 
             // Constructor
-            InfosPlayer(std::string id): id(id) {
+            InfosPlayer(std::string id, std::string name, std::string idPlayer, int hoursPlayed, int minutesPlayed, std::vector<std::pair<int, int>> _inventoryPlayer) : id(id), name(name), idPlayer(idPlayer), hoursPlayed(hoursPlayed), minutesPlayed(minutesPlayed), _inventoryPlayer(_inventoryPlayer) {
+                this->pokeDollar = 0;
+                this->nbBadges = 0;
             }
 
             InfosPlayer(std::string id, std::string name): id(id), name(name) {

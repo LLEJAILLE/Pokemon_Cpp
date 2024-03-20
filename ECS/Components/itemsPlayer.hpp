@@ -13,7 +13,6 @@ namespace ECS {
         public:
             std::string id;
             std::vector<std::vector<std::variant<int, std::string>>> items;
-            std::vector<int> inventory;
 
             // Constructor
             ItemsPlayer(std::string id): id(id) {

@@ -19,6 +19,7 @@ class Game {
         ~Game();
 
         void run();
+        void loadSave();
 
     protected:
 
@@ -30,5 +31,11 @@ class Game {
         std::map<_Scene, std::shared_ptr<ECS::AScene>> allScenes;
         std::map<std::string, std::vector<int>> _historyValues;
 
-    private:
+        // from load save
+        std::string _playerName;
+        std::string _playerId;
+        int hourPlayed;
+        int minutePlayed;
+        Vector2 _playerPosition;
+        std::vector<std::pair<int, int>> _inventoryPlayer;
 };

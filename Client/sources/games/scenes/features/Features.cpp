@@ -80,5 +80,5 @@ void Features::update(float deltatime, float getTime)
 
     checkEventCol();
 
-    modules::Menu::openMenu(this->waitBeforeOpenMenu, this->_IsMoving, this->_menu, this->_cursor, this->_cursorPos, this->_myPlayer);
+    modules::Menu::openMenu(this->waitBeforeOpenMenu, this->_IsMoving, this->_menu, this->_cursor, this->_cursorPos, this->_myPlayer, this->camera, this->_map, this->_eventsCol, this->_stateMoving, this->frameRec);
 }
