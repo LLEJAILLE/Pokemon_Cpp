@@ -23,7 +23,7 @@ namespace modules {
         ~Menu() = delete;
 
         public:
-            static void openMenu(bool &waitBeforeOpenMenu, bool &_IsMoving, Texture2D &_menu, Texture2D &_cursor, Vector2 &_cursorPos);            
+            static void openMenu(bool &waitBeforeOpenMenu, bool &_IsMoving, Texture2D &_menu, Texture2D &_cursor, Vector2 &_cursorPos, ECS::IEntity& player);
     };
 }
 

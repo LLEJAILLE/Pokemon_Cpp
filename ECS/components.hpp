@@ -46,3 +46,4 @@
 #include "Components/pnjPosition.hpp"
 #include "Components/eventClickComp.hpp"
 #include "Components/itemsPlayer.hpp"
+#include "Components/infosPlayer.hpp"

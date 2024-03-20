@@ -49,8 +49,9 @@ void Game::run()
     player.addComponent<ECS::TextureLeft>(img2, "player_left");
     player.addComponent<ECS::TextureRight>(img3, "player_right");
     player.addComponent<ECS::TextureUp>(img4, "player_up");
+    
     player.addComponent<ECS::ItemsPlayer>("itemsPlayer");
-
+    player.addComponent<ECS::InfosPlayer>("infosPlayer", "RED");
 
     Features featuresScene(this->_scene, _soundManager, player);
     
