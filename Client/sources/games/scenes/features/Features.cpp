@@ -11,7 +11,6 @@ Features::~Features()
 
 void Features::checkEventCol()
 {
-    auto eventsInstance = modules::Events();
     if (IsKeyPressed(KEY_SPACE)) {
         for (int i = 0; i < this->_eventsCol.size(); i++) {
             if (this->_myPlayer.getComponent<ECS::PositionComponent2d>()->position.x + 50 >= this->_eventsCol[i]->getComponent<ECS::EventClickComp>()->position.x && this->_myPlayer.getComponent<ECS::PositionComponent2d>()->position.x <= this->_eventsCol[i]->getComponent<ECS::EventClickComp>()->position.x + 50 && this->_myPlayer.getComponent<ECS::PositionComponent2d>()->position.y + 50 >= this->_eventsCol[i]->getComponent<ECS::EventClickComp>()->position.y && this->_myPlayer.getComponent<ECS::PositionComponent2d>()->position.y <= this->_eventsCol[i]->getComponent<ECS::EventClickComp>()->position.y + 50) {                
@@ -24,8 +23,7 @@ void Features::checkEventCol()
 
                             auto it = this->_mapFunction.find(firstWord);
                             if (it != this->_mapFunction.end()) {
-                                (eventsInstance.*it->second)(action, this->_deltaTime, this->_eventsCol, this->_eventsCol[i], this->_dialogBox, this->_myPlayer, this->camera, this->_map, this->_stateMoving, this->frameRec);
-
+                                (this->eventsInstance.*it->second)(action, this->_deltaTime, this->_eventsCol, this->_eventsCol[i], this->_dialogBox, this->_myPlayer, this->camera, this->_map, this->_stateMoving, this->frameRec);
                                 draw();
                             }
                         }
@@ -48,8 +46,8 @@ void Features::draw()
 {
     BeginDrawing();
         ClearBackground(Color{255, 255, 255, 255});
+        DrawFPS(10, 10);
         BeginMode2D(this->camera);
-            DrawFPS(10, 10);
 
             for (int i = 0; i < this->_map.size(); i++) {
                 DrawTexture(this->_map[i]->getComponent<ECS::Texture2d>()->texture, this->_map[i]->getComponent<ECS::PositionComponent2d>()->position.x, this->_map[i]->getComponent<ECS::PositionComponent2d>()->position.y, WHITE);
@@ -81,4 +79,6 @@ void Features::update(float deltatime, float getTime)
     modules::MovingUpdater::catchInput(this->_myPlayer, this->_stateMoving, this->_PositionStart, this->_PositionEnd, this->_IsMoving, this->_collisions, this->_eventsCol);
 
     checkEventCol();
+
+    modules::Menu::openMenu(this->waitBeforeOpenMenu, this->_IsMoving, this->_menu, this->_cursor, this->_cursorPos);
 }

@@ -11,6 +11,7 @@
     #include "../../modules/map/map.hpp"
     #include "../../modules/parsingEvent/parsingEvent.hpp"
     #include "../../modules/events/events.hpp"
+    #include "../../modules/menu/menu.hpp"
     #include <filesystem>
 
     class Features : public ECS::AScene {
@@ -43,7 +44,6 @@
             void draw() override;
             void update(float deltatime, float getTime) override;
 
-            // void parseAndFillPnj(std::string path);
             void checkEventCol();
 
             SoundManager &_soundManager;
@@ -55,9 +55,14 @@
             using FuncPtr = void (modules::Events::*)(const std::string &, float deltatime, std::map<int, std::shared_ptr<ECS::IEntity>> &_eventCol, std::shared_ptr<ECS::IEntity> &_thisEvent, Texture2D &dialogBox, ECS::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec);
             std::map<std::string, FuncPtr> _mapFunction;
 
+            modules::Events eventsInstance;
 
         private:
             Texture2D _dialogBox = LoadTexture("./Media/ui/dialogBox.png");
+            Texture2D _menu = LoadTexture("./Media/ui/menu.png");
+            Texture2D _cursor = LoadTexture("./Media/ui/focus.png");
+            Vector2 _cursorPos = {1670, 50};
+
             float _deltaTime = 0;
             float frameWidth = 0;
             float frameHeight = 0;
@@ -67,6 +72,7 @@
             Rectangle frameRec;
             std::string _stateMoving = "";
             bool _IsMoving = false;
+            bool waitBeforeOpenMenu = false;
             float speed = 150;
             Vector2 _PositionStart = {0, 0};
             Vector2 _PositionEnd = {0, 0};
