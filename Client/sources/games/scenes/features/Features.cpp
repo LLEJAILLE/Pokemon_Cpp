@@ -72,7 +72,7 @@ void Features::update(float deltatime, float getTime)
     this->camera.target.y = this->_myPlayer.getComponent<ECS::PositionComponent2d>()->position.y + 25;
 
     // update moving here
-    modules::Textures::updateTexture(30.0f, deltatime, this->_IsMoving, this->currentFrame, this->framesCounter, this->frameRec, this->frameWidth, this->frameHeight);
+    modules::Textures::updateTexture(200.0f, deltatime, this->_IsMoving, this->currentFrame, this->framesCounter, this->frameRec, this->frameWidth, this->frameHeight);
     modules::MovingUpdater::updateMoving(this->_myPlayer, this->_stateMoving, this->_PositionEnd, deltatime, 130.0f, this->_IsMoving);
 
     // catch input here

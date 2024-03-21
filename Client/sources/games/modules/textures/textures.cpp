@@ -1,6 +1,6 @@
 #include "textures.hpp"
 
-void modules::Textures::updateTexture(float speed, float deltatime, bool isMoving, int& currentFrame, int& framesCounter, Rectangle& frameRec, float frameWidth, float frameHeight)
+void modules::Textures::updateTexture(float speed, float deltaTime, bool isMoving, int& currentFrame, int& framesCounter, Rectangle& frameRec, float frameWidth, float frameHeight)
 {
     if (!isMoving) {
         currentFrame = 0;
@@ -9,7 +9,7 @@ void modules::Textures::updateTexture(float speed, float deltatime, bool isMovin
         return;
     }
 
-    framesCounter++;
+    framesCounter += speed * deltaTime;
     if (framesCounter > 40) {
         currentFrame++;
         if (currentFrame >= 4) {
