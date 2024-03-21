@@ -22,44 +22,32 @@ void Game::loadSave()
     std::string line;
     int nbLine = 0;
 
-    std::string name;
-    std::string id;
-    std::string time;
-    int hour, minute;
-    std::vector<std::pair<int, int>> inventory;
+    std::string name;     // Player name
+    std::string id;       // Player ID
+    std::string time;     // Time played (string)
+    int hour, minute;     // Time played (int)
+    std::vector<std::pair<int, int>> inventory; // Inventory 
 
     while (std::getline(file, line)) {
         nbLine++;
         if (line.find("[Player Infos]") != line.npos) {
             std::getline(file, line);
-
-            // Extraire le nom entre les guillemets
             size_t first_quote_pos = line.find("\"");
             size_t last_quote_pos = line.find_last_of("\"");
-            name = line.substr(first_quote_pos + 1, last_quote_pos - first_quote_pos - 1);
-
+            name = line.substr(first_quote_pos + 1, last_quote_pos - first_quote_pos - 1);   // get player name
             std::getline(file, line);
-
-            // Extraire l'ID entre les guillemets
             first_quote_pos = line.find("\"");
             last_quote_pos = line.find_last_of("\"");
-            id = line.substr(first_quote_pos + 1, last_quote_pos - first_quote_pos - 1);
-
+            id = line.substr(first_quote_pos + 1, last_quote_pos - first_quote_pos - 1);     // get player ID
             std::getline(file, line);
-
-            // Extraire le temps de jeu
-            time = line.substr(line.find(": ") + 2);
-            hour = std::stoi(time.substr(0, time.find(" ")));
-            minute = std::stoi(time.substr(time.find(" ") + 1));
-
-            // Ignorer les lignes suivantes
+            time = line.substr(line.find(": ") + 2);                                         // get time played
+            hour = std::stoi(time.substr(0, time.find(" ")));                                // get hour from time played
+            minute = std::stoi(time.substr(time.find(" ") + 1));                             // get minute from time played
             std::getline(file, line);
             std::getline(file, line);
             std::getline(file, line);
 
-            // Lire l'inventaire du joueur
-            while (std::getline(file, line)) {
-                // Format de la ligne : "1: 10"
+            while (std::getline(file, line)) {                                               // get inventory
                 int idItem = std::stoi(line.substr(0, line.find(":")));
                 int nbItem = std::stoi(line.substr(line.find(":") + 2));
                 inventory.push_back(std::make_pair(idItem, nbItem));
@@ -82,13 +70,12 @@ void Game::run()
     const int screenHeight = 1000;
 
 
+    // ------------------ INIT RAYLIB PARAMETERS ------------------ //
     InitWindow(screenWidth, screenHeight, "Pokemon - Rouge");
-    
-    // enlever les bordures de la fenetre
     SetWindowState(FLAG_WINDOW_UNDECORATED);
-
     SetTargetFPS(240);
 
+    loadSave();
     // ------------------ INIT SCENES ------------------ //
     // Font myFont = LoadFontEx("./Media/font/Prototype.ttf", 96, 0, 250);
 
@@ -96,7 +83,6 @@ void Game::run()
     // Font Spiegel = LoadFontEx("./Media/Fonts_Package/Fonts_Package/Spiegel-TTF/Spiegel_TT_Bold.ttf", 96, 0, 250);
 
     // ------------------ CREATE ENTITIES ------------------ //
-    loadSave();
 
     ECS::IEntity player("player");
     Image img = LoadImage("./Media/sprite_down.png");

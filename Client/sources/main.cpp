@@ -11,9 +11,6 @@
 int main(void)
 {
     Game game;
-    std::cout << "Game is detached" << std::endl;
-
     game.run();
-
     return 0;
 }

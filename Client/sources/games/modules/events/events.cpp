@@ -126,7 +126,7 @@ namespace modules {
     ///-----------------UTILS-----------------///
 
     void Events::updateFrameRec(float speed, float deltatime, bool isMoving, int& currentFrame, int& framesCounter, Rectangle& frameRec, float frameWidth, float frameHeight) {
-        framesCounter++;
+        framesCounter += static_cast<int>(speed * deltatime);
         if (framesCounter > 40) {
             currentFrame++;
             frameRec.x = frameWidth * currentFrame;
