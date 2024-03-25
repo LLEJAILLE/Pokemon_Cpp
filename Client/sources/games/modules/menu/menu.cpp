@@ -6,7 +6,11 @@ namespace modules {
     }
 
     void goToPokemon(ECS::IEntity& player, int &key, bool &reOpenMenu) {
-        std::cout << "go to pokemon" << std::endl;
+        for (int i = 0; i < player.getComponent<ECS::InfosPlayer>()->playerPokemons.size(); i++) {
+            for (int j = 0; j < player.getComponent<ECS::InfosPlayer>()->playerPokemons[i].size(); j++) {
+                std::cout << "name: " << player.getComponent<ECS::InfosPlayer>()->playerPokemons[i][j]["name"] << std::endl;
+            }
+        }
     }
 
     void goToItem(ECS::IEntity& player, int &key, bool &reOpenMenu) {

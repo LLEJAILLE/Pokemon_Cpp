@@ -16,8 +16,8 @@
 
     class Features : public ECS::AScene {
         public:
-            Features(_Scene &scene, SoundManager &soundManager, ECS::IEntity &myPlayer)
-            : _scene(scene), _soundManager(soundManager), _myPlayer(myPlayer)
+            Features(_Scene &scene, SoundManager &soundManager, ECS::IEntity &myPlayer, ECS::IEntity &pokemons)
+            : _scene(scene), _soundManager(soundManager), _myPlayer(myPlayer), _pokemons(pokemons)
             {
                 modules::Map::parseMap("./maps/featuresMap/featuresMap.txt", "./maps/featuresMap/featuresConfig.txt", this->_indexFilePathText, this->_indexFilePathColl, this->_collisions, this->_map);
                 modules::ParsingEvent::parseAndFillPnj("./maps/featuresEvents.txt", this->_eventsCol);
@@ -50,6 +50,7 @@
             _Scene &_scene;
 
             ECS::IEntity &_myPlayer;
+            ECS::IEntity &_pokemons;
 
 
             using FuncPtr = void (modules::Events::*)(const std::string &, float deltatime, std::map<int, std::shared_ptr<ECS::IEntity>> &_eventCol, std::shared_ptr<ECS::IEntity> &_thisEvent, Texture2D &dialogBox, ECS::IEntity &_myPlayer, Camera2D &camera, std::map<int, std::shared_ptr<ECS::IEntity>> &_map, std::string &_stateMoving, Rectangle &frameRec);
