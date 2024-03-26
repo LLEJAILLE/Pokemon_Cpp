@@ -73,7 +73,7 @@ void Game::run()
     // ------------------ INIT RAYLIB PARAMETERS ------------------ //
     InitWindow(screenWidth, screenHeight, "Pokemon - Rouge");
     SetWindowState(FLAG_WINDOW_UNDECORATED);
-    SetTargetFPS(240);
+    SetTargetFPS(60);
 
     loadSave();
     // ------------------ INIT SCENES ------------------ //
@@ -99,7 +99,10 @@ void Game::run()
     player.addComponent<ECS::ItemsPlayer>("itemsPlayer");
     player.addComponent<ECS::InfosPlayer>("infosPlayer", this->_playerName, this->_playerId, this->hourPlayed, this->minutePlayed, this->_inventoryPlayer);
 
-    Features featuresScene(this->_scene, _soundManager, player);
+    ECS::IEntity pokemons("pokemons");
+    pokemons.addComponent<ECS::Pokemons>("pokemons");
+
+    Features featuresScene(this->_scene, _soundManager, player, pokemons);
     
     featuresScene.addEntity(std::make_shared<ECS::IEntity>(player));
 

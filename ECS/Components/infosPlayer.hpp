@@ -19,11 +19,49 @@ namespace ECS {
             int hoursPlayed;
             int minutesPlayed;
             std::vector<std::pair<int, int>> _inventoryPlayer;
+            std::vector<std::vector<std::map<std::string, std::string>>> playerPokemons;
 
             // Constructor
             InfosPlayer(std::string id, std::string name, std::string idPlayer, int hoursPlayed, int minutesPlayed, std::vector<std::pair<int, int>> _inventoryPlayer) : id(id), name(name), idPlayer(idPlayer), hoursPlayed(hoursPlayed), minutesPlayed(minutesPlayed), _inventoryPlayer(_inventoryPlayer) {
                 this->pokeDollar = 0;
                 this->nbBadges = 0;
+
+                // add pokemons
+                this->playerPokemons.push_back({
+                    {
+                        {"name", "Bulbasaur"},
+                        {"type 1", "Grass"},
+                        {"type 2", "Poison"},
+                        {"level", "5"},
+                        {"xp", "0"},
+                        {"hp", "45"},
+                        {"hpMax", "45"},
+                        {"attack", "49"},
+                        {"defense", "49"},
+                        {"speed", "45"},
+                        {"special-attack", "65"},
+                        {"special-defense", "65"},
+                        {"moves", "Tackle, Growl, Leech Seed, Vine Whip"},
+                        {"ivs", "0, 0, 0, 0, 0, 0"},
+                        {"evs", "0, 0, 0, 0, 0, 0"}
+                    },
+                    {
+                        {"name", "Charmander"},
+                        {"type 1", "Fire"},
+                        {"level", "5"},
+                        {"xp", "0"},
+                        {"hp", "39"},
+                        {"hpMax", "45"},
+                        {"attack", "52"},
+                        {"defense", "43"},
+                        {"speed", "65"},
+                        {"special-attack", "60"},
+                        {"special-defense", "50"},
+                        {"moves", "Scratch, Growl, Ember"},
+                        {"ivs", "0, 0, 0, 0, 0, 0"},
+                        {"evs", "0, 0, 0, 0, 0, 0"}
+                    },
+                });
             }
 
             InfosPlayer(std::string id, std::string name): id(id), name(name) {

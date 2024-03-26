@@ -152,7 +152,7 @@ namespace modules {
                 auto eventComp = _eventsCol[i]->getComponent<ECS::EventClickComp>();
 
                 if (_eventsCol[i] == _thisEvent) {
-                    updateFrameRec(150, deltatime, eventComp->isMoving, eventComp->currentFrame, eventComp->framesCounter, eventComp->frameRec, eventComp->frameWidth, eventComp->frameHeight);
+                    updateFrameRec(200, deltatime, eventComp->isMoving, eventComp->currentFrame, eventComp->framesCounter, eventComp->frameRec, eventComp->frameWidth, eventComp->frameHeight);
                     DrawTextureRec(eventComp->actualTexture, eventComp->frameRec, eventComp->position, WHITE);
                 } else {
                     DrawTextureRec(eventComp->actualTexture, frameRec, eventComp->position, WHITE);

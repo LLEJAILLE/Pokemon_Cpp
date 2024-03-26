@@ -47,3 +47,4 @@
 #include "Components/eventClickComp.hpp"
 #include "Components/itemsPlayer.hpp"
 #include "Components/infosPlayer.hpp"
+#include "Components/pokemons.hpp"

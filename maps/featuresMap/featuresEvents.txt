@@ -33,9 +33,4 @@ lookPlayer
 text "Salut à toi jeune Dresseur ! Tu es dans le mode dev !"
 text "Et ceci est un test de la fonctionnalité de texte j'espère que tu apprécie le rendu !"
 text "aller je me casse bisous"
-move_eventDown
-move_eventDown
-move_eventDown
-move_eventDown
-move_eventDown
 --0
