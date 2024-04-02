@@ -97,6 +97,7 @@ void Game::run()
     player.addComponent<ECS::TextureUp>(img4, "player_up");
     
     player.addComponent<ECS::ItemsPlayer>("itemsPlayer");
+    player.addComponent<ECS::MovePokemons>("moveComponent");
     player.addComponent<ECS::InfosPlayer>("infosPlayer", this->_playerName, this->_playerId, this->hourPlayed, this->minutePlayed, this->_inventoryPlayer);
 
     ECS::IEntity pokemons("pokemons");

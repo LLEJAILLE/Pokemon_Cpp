@@ -5,16 +5,68 @@ namespace modules {
         std::cout << "go to pokedex" << std::endl;
     }
 
+    void getMovesOfPokemon(ECS::IEntity& player, std::string movesStr) {
+        std::vector<int> moves;
+        std::string delimiter = ", ";
+        size_t pos = 0;
+        std::string token;
+
+        while ((pos = movesStr.find(delimiter)) != std::string::npos) {
+            token = movesStr.substr(0, pos);
+            moves.push_back(std::stoi(token));
+            movesStr.erase(0, pos + delimiter.length());
+        }
+        moves.push_back(std::stoi(movesStr));
+
+        for (int i = 0; i < player.getComponent<ECS::MovePokemons>()->movesPokemons.size(); i++) {
+            for (int j = 0; j < player.getComponent<ECS::MovePokemons>()->movesPokemons[i].size(); j++) {
+                for (int k = 0; k < moves.size(); k++) {
+                    if (std::stoi(player.getComponent<ECS::MovePokemons>()->movesPokemons[i][j]["id"]) == moves[k]) {
+                        std::cout << "      name: " << player.getComponent<ECS::MovePokemons>()->movesPokemons[i][j]["name"] << std::endl;
+                        std::cout << "      type: " << player.getComponent<ECS::MovePokemons>()->movesPokemons[i][j]["type"] << std::endl;
+                        std::cout << "      category: " << player.getComponent<ECS::MovePokemons>()->movesPokemons[i][j]["category"] << std::endl;
+                        std::cout << "      power: " << player.getComponent<ECS::MovePokemons>()->movesPokemons[i][j]["power"] << std::endl;
+                        std::cout << "      accuracy: " << player.getComponent<ECS::MovePokemons>()->movesPokemons[i][j]["accuracy"] << std::endl;
+                        std::cout << "      pp: " << player.getComponent<ECS::MovePokemons>()->movesPokemons[i][j]["pp"] << std::endl;
+                        std::cout << "      priority: " << player.getComponent<ECS::MovePokemons>()->movesPokemons[i][j]["priority"] << std::endl;
+                        std::cout << "      effect: " << player.getComponent<ECS::MovePokemons>()->movesPokemons[i][j]["effect"] << std::endl;
+                        std::cout << "      description: " << player.getComponent<ECS::MovePokemons>()->movesPokemons[i][j]["description"] << std::endl;
+
+                        std::cout << std::endl;
+                    }
+                }
+            }
+        }
+    }
+
     void goToPokemon(ECS::IEntity& player, int &key, bool &reOpenMenu) {
         for (int i = 0; i < player.getComponent<ECS::InfosPlayer>()->playerPokemons.size(); i++) {
             for (int j = 0; j < player.getComponent<ECS::InfosPlayer>()->playerPokemons[i].size(); j++) {
                 std::cout << "name: " << player.getComponent<ECS::InfosPlayer>()->playerPokemons[i][j]["name"] << std::endl;
+
+                getMovesOfPokemon(player, player.getComponent<ECS::InfosPlayer>()->playerPokemons[i][j]["moves"]);
             }
         }
     }
 
     void goToItem(ECS::IEntity& player, int &key, bool &reOpenMenu) {
-        std::cout << "go to item" << std::endl;
+        for (const auto &item : player.getComponent<ECS::InfosPlayer>()->_inventoryPlayer) {
+            int idItem = item.first;
+            int nbItem = item.second;
+
+            auto it = std::find_if(player.getComponent<ECS::ItemsPlayer>()->items.begin(), player.getComponent<ECS::ItemsPlayer>()->items.end(), [idItem](const auto& itemVec) {
+                return std::get<int>(itemVec[0]) == idItem;
+            });
+
+            if (it != player.getComponent<ECS::ItemsPlayer>()->items.end()) {
+                const auto& itemInfo = *it;
+
+                std::cout << std::get<std::string>(itemInfo[1]) << " ";
+                std::cout << std::get<std::string>(itemInfo[2]) << " ";
+
+                std::cout << "Quantity: " << nbItem << std::endl;   
+            }
+        }
     }
 
     void goToPlayerInfo(ECS::IEntity& player, int &key, bool &reOpenMenu) {

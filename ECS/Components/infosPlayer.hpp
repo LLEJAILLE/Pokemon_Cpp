@@ -41,7 +41,7 @@ namespace ECS {
                         {"speed", "45"},
                         {"special-attack", "65"},
                         {"special-defense", "65"},
-                        {"moves", "Tackle, Growl, Leech Seed, Vine Whip"},
+                        {"moves", "0, 1, 2"},
                         {"ivs", "0, 0, 0, 0, 0, 0"},
                         {"evs", "0, 0, 0, 0, 0, 0"}
                     },
@@ -57,7 +57,7 @@ namespace ECS {
                         {"speed", "65"},
                         {"special-attack", "60"},
                         {"special-defense", "50"},
-                        {"moves", "Scratch, Growl, Ember"},
+                        {"moves", "0, 1, 2"},
                         {"ivs", "0, 0, 0, 0, 0, 0"},
                         {"evs", "0, 0, 0, 0, 0, 0"}
                     },

@@ -48,3 +48,4 @@
 #include "Components/itemsPlayer.hpp"
 #include "Components/infosPlayer.hpp"
 #include "Components/pokemons.hpp"
+#include "Components/movePokemons.hpp"
